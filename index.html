@@ -1,114 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Lovely Mercy</title>
-
-<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-<link href="ForMercy.css" rel="stylesheet">
-
-<!-- SMALL FIX HERE (important) -->
-<style>
-/* This makes the instruction disappear when the envelope opens */
-#envelope.is-open + .instruction {
-    opacity: 0;
-    pointer-events: none;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Lovely Mercy</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="ForMercy.css" rel="stylesheet">
 </head>
-
 <body>
 
-<!-- ENVELOPE (must stay first) -->
-<div class="envelope-wrapper" id="envelope">
+    <!-- INSTRUCTION (on top at first, fades when opened) -->
+    <div class="instruction">
+        A special message for Mercy ❤️<br>
+        (Click the envelope to open)
+    </div>
 
-<div class="letter">
-<img src="us.jpg" alt="Us" class="us-photo">
+    <!-- EVERYTHING ANIMATED MUST BE INSIDE ONE CONTAINER -->
+    <div class="scene">
 
-<h2>Happy Valentine's Day!</h2>
-<p>To my lovely wife, <strong>Mercy</strong>,</p>
-<p>You are the heart of our home and the love of my life.</p>
-<p>Forever yours, KRST ❤️</p>
-</div>
+        <!-- ENVELOPE FIRST -->
+        <div class="envelope-wrapper" id="envelope">
 
-<div class="wax-seal">
-<i class="ri-heart-fill"></i>
-</div>
+            <div class="letter">
+                <img src="us.jpg" alt="Us" class="us-photo">
+                <h2>Happy Valentine's Day!</h2>
+                <p>To my lovely wife, <strong>Mercy</strong>,</p>
+                <p>You are the heart of our home and the love of my life.</p>
+                <p>Forever yours, KRST ❤️</p>
+            </div>
 
-<div class="hearts-container">
-<div class="hearts-row row-3">
-<div><i class="ri-heart-fill"></i></div>
-<div><i class="ri-heart-fill"></i></div>
-<div><i class="ri-heart-fill"></i></div>
-</div>
+            <div class="wax-seal">
+                <i class="ri-heart-fill"></i>
+            </div>
 
-<div class="hearts-row row-2">
-<div><i class="ri-heart-fill"></i></div>
-<div><i class="ri-heart-fill"></i></div>
-</div>
+            <div class="hearts-container">
+                <div class="hearts-row row-3">
+                    <div><i class="ri-heart-fill"></i></div>
+                    <div><i class="ri-heart-fill"></i></div>
+                    <div><i class="ri-heart-fill"></i></div>
+                </div>
+                <div class="hearts-row row-2">
+                    <div><i class="ri-heart-fill"></i></div>
+                    <div><i class="ri-heart-fill"></i></div>
+                </div>
+                <div class="hearts-row row-1">
+                    <div><i class="ri-heart-fill"></i></div>
+                </div>
+            </div>
 
-<div class="hearts-row row-1">
-<div><i class="ri-heart-fill"></i></div>
-</div>
-</div>
+            <div class="envelope-base"></div>
+        </div>
 
-<div class="envelope-base"></div>
-</div>
+        <!-- GARDEN COMES AFTER ENVELOPE (CSS depends on this) -->
+        <div class="garden">
+            <div class="flower-container flower-left pink">
+                <div class="stem">
+                    <div class="flower-head">
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="center"></div>
+                    </div>
+                </div>
+            </div>
 
-<!-- INSTRUCTION MUST STAY HERE (right after envelope) -->
-<div class="instruction">
-A special message for Mercy ❤️<br>
-(Click the envelope to open)
-</div>
+            <div class="flower-container flower-right blue">
+                <div class="stem">
+                    <div class="flower-head">
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="center"></div>
+                    </div>
+                </div>
+            </div>
 
-<!-- GARDEN & FLOWERS -->
-<div class="garden">
+            <div class="flower-container flower-far-right purple">
+                <div class="stem">
+                    <div class="flower-head">
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="center"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="flower-container flower-left pink">
-<div class="stem">
-<div class="flower-head">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-</div>
+    </div> <!-- end scene -->
 
-<div class="flower-container flower-right blue">
-<div class="stem">
-<div class="flower-head">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-</div>
+    <button id="replay-btn">Close & Reset</button>
 
-<div class="flower-container flower-far-right purple">
-<div class="stem">
-<div class="flower-head">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-</div>
+    <audio id="valentines-audio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
 
-</div>
-
-<button id="replay-btn">Close & Reset</button>
-
-<audio id="valentines-audio" loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
-
-<script src="ForMercy.js"></script>
+    <script src="ForMercy.js"></script>
 </body>
 </html>
