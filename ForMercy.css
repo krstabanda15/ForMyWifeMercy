@@ -10,22 +10,31 @@ body {
     overflow: hidden;
 }
 
-/* ======= INSTRUCTION ======= */
+/* ============================= */
+/* FIXED INSTRUCTION (FLOATING)  */
+/* ============================= */
 .instruction {
-    margin-bottom: 20px;
+    position: absolute;   /* <-- CRITICAL FIX */
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     color: #ff4d6d;
     font-weight: bold;
     text-align: center;
     animation: bounce 2s infinite;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.6s ease;
+    z-index: 200;
 }
 
-/* Hide instruction when envelope is open */
+/* Hide instruction when opened */
 .envelope-wrapper.is-open ~ .instruction {
     opacity: 0;
+    pointer-events: none;
 }
 
-/* ======= ENVELOPE WRAPPER (CRITICAL FIX) ======= */
+/* ============================= */
+/* ENVELOPE WRAPPER (KEEP OPEN)  */
+/* ============================= */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
@@ -33,15 +42,15 @@ body {
     height: 200px;
     background-color: transparent;
     z-index: 20;
-
-    /* THIS was your original problem — must stay visible */
-    overflow: visible;
+    overflow: visible; /* must stay */
 }
 
-/* ======= LETTER (THE MESSAGE) ======= */
+/* ============================= */
+/* LETTER (HIDDEN AT FIRST)      */
+/* ============================= */
 .letter {
     position: absolute;
-    bottom: 0;                 /* centered start */
+    bottom: 0; 
     left: 10px;
     width: 280px;
     height: 220px;
@@ -52,21 +61,20 @@ body {
     border-radius: 12px;
     box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
 
-    /* Start hidden inside envelope */
     transform: translateY(40px) scale(0.95);
     opacity: 0;
 
     transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-/* ======= WHEN OPEN — FIXED POSITION (won’t cover photo anymore) ======= */
+/* WHEN OPEN — clean, visible, readable */
 .envelope-wrapper.is-open .letter { 
     transform: translateY(-170px) scale(1);
     opacity: 1;
-    z-index: 25;
+    z-index: 50;
 }
 
-/* Your photo inside the letter */
+/* Photo styling */
 .us-photo {
     width: 100%;
     height: auto;
@@ -74,7 +82,9 @@ body {
     margin-bottom: 8px;
 }
 
-/* ======= ENVELOPE BASE ======= */
+/* ============================= */
+/* ENVELOPE BASE + FLAP          */
+/* ============================= */
 .envelope-base {
     position: absolute;
     bottom: 0;
@@ -85,7 +95,6 @@ body {
     z-index: 10;
 }
 
-/* ======= ENVELOPE FLAP ======= */
 .envelope-base::before {
     content: "";
     position: absolute;
@@ -98,12 +107,13 @@ body {
     z-index: 30;
 }
 
-/* Flip the flap when open */
 .envelope-wrapper.is-open .envelope-base::before { 
     transform: rotateX(180deg);
 }
 
-/* ======= WAX SEAL ======= */
+/* ============================= */
+/* WAX SEAL                      */
+/* ============================= */
 .wax-seal {
     position: absolute;
     top: 85px;
@@ -121,12 +131,13 @@ body {
     transition: opacity 0.3s;
 }
 
-/* Hide seal when opened */
 .envelope-wrapper.is-open .wax-seal { 
     opacity: 0;
 }
 
-/* ======= FLOWERS ======= */
+/* ============================= */
+/* GARDEN + FLOWERS (unchanged)  */
+/* ============================= */
 .garden {
     position: absolute;
     bottom: 0;
@@ -136,19 +147,19 @@ body {
     z-index: 2;
 }
 
-/* Hide flowers until opened */
 .flower-container { 
     position: absolute; 
     bottom: 0; 
     display: none; 
 }
 
-/* Show flowers after opening */
 .envelope-wrapper.is-open ~ .garden .flower-container { 
     display: block !important; 
 }
 
-/* ======= REPLAY BUTTON ======= */
+/* ============================= */
+/* REPLAY BUTTON                 */
+/* ============================= */
 #replay-btn {
     position: relative;
     z-index: 100;
@@ -165,13 +176,14 @@ body {
     transition: opacity 0.3s ease;
 }
 
-/* Show button after opening */
 .envelope-wrapper.is-open ~ #replay-btn { 
     opacity: 1; 
     visibility: visible; 
 }
 
-/* ======= BOUNCE ANIMATION ======= */
+/* ============================= */
+/* BOUNCE ANIMATION              */
+/* ============================= */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
