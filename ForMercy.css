@@ -159,4 +159,19 @@
         .is-open ~ #replay-btn { 
             opacity: 1; 
             visibility: visible;
+
         }
+@media screen and (max-width: 480px) {
+    .envelope-wrapper {
+        transform: scale(0.8); /* Shrinks the envelope slightly for small screens */
+    }
+    
+    .instruction {
+        font-size: 0.9rem; /* Makes text slightly smaller so it doesn't wrap weirdly */
+        padding: 0 20px;
+    }
+
+    .letter {
+        width: 280px; /* Keeps the letter size consistent */
+    }
+}
