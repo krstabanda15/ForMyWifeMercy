@@ -175,3 +175,91 @@
         width: 280px; /* Keeps the letter size consistent */
     }
 }
+.garden {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    pointer-events: none; /* So Mercy can still click the envelope easily */
+}
+
+.flower-container {
+    position: absolute;
+    bottom: 0;
+    display: none;
+    z-index: 1;
+}
+
+.envelope-wrapper.is-open ~ .garden .flower-container {
+    display: block;
+}
+
+/* Base Stem Style */
+.stem {
+    width: 6px;
+    height: 0;
+    background: #2d6a4f;
+    position: relative;
+    border-radius: 3px;
+}
+
+/* Flower Head & Petals */
+.flower-head {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+}
+
+.petal {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border-radius: 50% 50% 0 50%;
+    transform-origin: bottom right;
+    /* Uses the color defined in the classes below */
+    background: var(--petal-color); 
+}
+
+/* Petal Positions */
+.petal:nth-child(2) { transform: rotate(90deg); }
+.petal:nth-child(3) { transform: rotate(180deg); }
+.petal:nth-child(4) { transform: rotate(270deg); }
+
+.center {
+    width: 12px;
+    height: 12px;
+    background: #ffea00;
+    border-radius: 50%;
+    position: absolute;
+    top: 6px;
+    left: 6px;
+}
+
+/* --- Color & Position Variants --- */
+.pink { --petal-color: #ffb3c1; }
+.blue { --petal-color: #a2d2ff; }
+.purple { --petal-color: #c8b6ff; }
+
+.flower-left { left: 10%; }
+.flower-right { right: 15%; }
+.flower-far-right { right: 5%; }
+
+/* --- Staggered Growth Animations --- */
+.flower-left .stem { animation: growStem 2s 0.2s ease-out forwards; }
+.flower-left .flower-head { animation: bloom 1s 1.8s ease-out forwards; }
+
+.flower-right .stem { animation: growStem 1.8s 0.5s ease-out forwards; }
+.flower-right .flower-head { animation: bloom 1s 2.0s ease-out forwards; }
+
+.flower-far-right .stem { animation: growStem 2.2s 0.8s ease-out forwards; }
+.flower-far-right .flower-head { animation: bloom 1s 2.5s ease-out forwards; }
+
+@keyframes growStem {
+    to { height: 160px; }
+}
+
+@keyframes bloom {
+    to { transform: translateX(-50%) scale(1); }
+}
+
