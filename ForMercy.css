@@ -188,6 +188,29 @@ body {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
 }
+.scene .garden {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 5;
+}
+
+/* Flowers hidden first */
+.scene .flower-container {
+    display: none;
+    visibility: hidden;
+}
+
+/* Flowers appear ONLY when envelope is open */
+.scene .envelope-wrapper.is-open ~ .garden .flower-container {
+    display: block !important;
+    visibility: visible !important;
+}
+
+/* Make sure flowers are above background but below letter */
+.flower-container {
+    z-index: 6 !important;
+}
 
 
 
