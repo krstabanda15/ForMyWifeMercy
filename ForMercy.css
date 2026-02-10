@@ -1,5 +1,5 @@
 /* =========================
-   GLOBAL & BACKGROUND
+   GLOBAL
 ========================= */
 
 body {
@@ -13,7 +13,7 @@ body {
 }
 
 /* =========================
-   INSTRUCTION TEXT
+   INSTRUCTION
 ========================= */
 
 .instruction {
@@ -28,7 +28,7 @@ body {
     transition: opacity 0.6s ease;
 }
 
-/* Hide instruction when opened */
+/* hide it AFTER opening */
 .envelope-wrapper.is-open ~ .instruction {
     opacity: 0;
     pointer-events: none;
@@ -36,6 +36,7 @@ body {
 
 /* =========================
    ENVELOPE CONTAINER
+   (🔥 CRITICAL FIX HERE)
 ========================= */
 
 .envelope-wrapper {
@@ -44,10 +45,13 @@ body {
     height: 220px;
     margin: 120px auto 0;
     cursor: pointer;
+
+    /* 🔥 THIS IS THE REAL PROBLEM YOU HAD */
+    overflow: visible;   /* <-- MUST BE THIS */
 }
 
 /* =========================
-   LETTER (KEY FIX HERE)
+   LETTER (NOW CAN ESCAPE)
 ========================= */
 
 .letter {
@@ -63,16 +67,16 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     opacity: 0;
     transition: all 0.8s ease;
-    z-index: 1;
+    z-index: 10;   /* must be above envelope */
 }
 
-/* WHEN OPEN — SLIDE UP CLEARLY */
+/* WHEN OPEN — FULLY OUT OF ENVELOPE */
 .envelope-wrapper.is-open .letter {
     opacity: 1;
     transform: translate(-50%, -260px) scale(1);
 }
 
-/* Your photo inside the letter */
+/* your photo */
 .us-photo {
     width: 100%;
     border-radius: 10px;
@@ -90,11 +94,11 @@ body {
     height: 200px;
     background: #ff8fab;
     border-radius: 15px;
-    z-index: 3;
+    z-index: 5;
 }
 
 /* =========================
-   ENVELOPE FLAP
+   FLAP
 ========================= */
 
 .envelope-wrapper::before {
@@ -107,10 +111,9 @@ body {
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
     transition: transform 0.6s ease;
-    z-index: 4;
+    z-index: 6;
 }
 
-/* Open the flap */
 .envelope-wrapper.is-open::before {
     transform: rotateX(180deg);
 }
@@ -133,20 +136,7 @@ body {
     justify-content: center;
     color: white;
     font-size: 24px;
-    z-index: 5;
-}
-
-/* =========================
-   HEARTS ABOVE ENVELOPE
-========================= */
-
-.hearts-container {
-    position: absolute;
-    top: -40px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ff4d6d;
-    font-size: 22px;
+    z-index: 7;
 }
 
 /* =========================
@@ -165,7 +155,7 @@ body {
 }
 
 /* =========================
-   GARDEN FLOWERS
+   GARDEN (keep yours)
 ========================= */
 
 .garden {
@@ -174,43 +164,4 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-around;
-}
-
-.flower-container {
-    position: relative;
-    width: 60px;
-    height: 140px;
-}
-
-/* simple stems */
-.stem {
-    width: 6px;
-    height: 120px;
-    background: green;
-    margin: auto;
-}
-
-/* petals */
-.flower-head {
-    position: absolute;
-    top: -20px;
-    left: -15px;
-}
-
-.petal {
-    width: 30px;
-    height: 30px;
-    background: pink;
-    border-radius: 50%;
-    position: absolute;
-}
-
-.center {
-    width: 15px;
-    height: 15px;
-    background: yellow;
-    border-radius: 50%;
-    position: absolute;
-    top: 7px;
-    left: 7px;
 }
