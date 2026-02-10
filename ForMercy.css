@@ -10,7 +10,7 @@ body {
     overflow: hidden;
 }
 
-/* ======= INSTRUCTION (keeps your original) ======= */
+/* ======= INSTRUCTION ======= */
 .instruction {
     margin-bottom: 20px;
     color: #ff4d6d;
@@ -20,11 +20,12 @@ body {
     transition: opacity 0.5s ease;
 }
 
+/* Hide instruction when envelope is open */
 .envelope-wrapper.is-open ~ .instruction {
     opacity: 0;
 }
 
-/* ======= ENVELOPE CONTAINER (THE REAL FIX) ======= */
+/* ======= ENVELOPE WRAPPER (CRITICAL FIX) ======= */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
@@ -33,14 +34,14 @@ body {
     background-color: transparent;
     z-index: 20;
 
-    /* 🔥 THIS is why your letter was stuck */
-    overflow: visible; 
+    /* THIS was your original problem — must stay visible */
+    overflow: visible;
 }
 
-/* ======= LETTER (HIDDEN INSIDE FIRST) ======= */
+/* ======= LETTER (THE MESSAGE) ======= */
 .letter {
     position: absolute;
-    bottom: -10px; 
+    bottom: 0;                 /* centered start */
     left: 10px;
     width: 280px;
     height: 220px;
@@ -48,22 +49,24 @@ body {
     padding: 15px;
     box-sizing: border-box;
     text-align: center;
+    border-radius: 12px;
+    box-shadow: 0px 6px 15px rgba(0,0,0,0.15);
 
-    /* START hidden inside envelope */
+    /* Start hidden inside envelope */
     transform: translateY(40px) scale(0.95);
     opacity: 0;
 
     transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-/* WHEN OPEN — SLIDE OUT CLEANLY */
+/* ======= WHEN OPEN — FIXED POSITION (won’t cover photo anymore) ======= */
 .envelope-wrapper.is-open .letter { 
-    transform: translateY(-260px) scale(1);
+    transform: translateY(-170px) scale(1);
     opacity: 1;
-    z-index: 40;
+    z-index: 25;
 }
 
-/* Your photo stays nice */
+/* Your photo inside the letter */
 .us-photo {
     width: 100%;
     height: auto;
@@ -71,18 +74,18 @@ body {
     margin-bottom: 8px;
 }
 
-/* ======= ENVELOPE BASE (your original look kept) ======= */
+/* ======= ENVELOPE BASE ======= */
 .envelope-base {
     position: absolute;
     bottom: 0;
     width: 300px;
     height: 180px;
     background-color: #ff8fa3;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 12px 12px;
     z-index: 10;
 }
 
-/* ======= FLAP (your original style kept) ======= */
+/* ======= ENVELOPE FLAP ======= */
 .envelope-base::before {
     content: "";
     position: absolute;
@@ -95,8 +98,9 @@ body {
     z-index: 30;
 }
 
+/* Flip the flap when open */
 .envelope-wrapper.is-open .envelope-base::before { 
-    transform: rotateX(180deg); 
+    transform: rotateX(180deg);
 }
 
 /* ======= WAX SEAL ======= */
@@ -113,12 +117,16 @@ body {
     justify-content: center;
     align-items: center;
     color: #fca5a5;
+    font-size: 18px;
     transition: opacity 0.3s;
 }
 
-.envelope-wrapper.is-open .wax-seal { opacity: 0; }
+/* Hide seal when opened */
+.envelope-wrapper.is-open .wax-seal { 
+    opacity: 0;
+}
 
-/* ======= FLOWERS (your original animations untouched) ======= */
+/* ======= FLOWERS ======= */
 .garden {
     position: absolute;
     bottom: 0;
@@ -128,8 +136,17 @@ body {
     z-index: 2;
 }
 
-.flower-container { position: absolute; bottom: 0; display: none; }
-.envelope-wrapper.is-open ~ .garden .flower-container { display: block !important; }
+/* Hide flowers until opened */
+.flower-container { 
+    position: absolute; 
+    bottom: 0; 
+    display: none; 
+}
+
+/* Show flowers after opening */
+.envelope-wrapper.is-open ~ .garden .flower-container { 
+    display: block !important; 
+}
 
 /* ======= REPLAY BUTTON ======= */
 #replay-btn {
@@ -142,11 +159,20 @@ body {
     border: none;
     border-radius: 25px;
     cursor: pointer;
+    font-size: 14px;
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.3s ease;
 }
 
+/* Show button after opening */
 .envelope-wrapper.is-open ~ #replay-btn { 
     opacity: 1; 
     visibility: visible; 
+}
+
+/* ======= BOUNCE ANIMATION ======= */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
 }
