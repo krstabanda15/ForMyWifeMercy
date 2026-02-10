@@ -2,7 +2,6 @@ body {
     background-color: #fff0f3;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
@@ -10,11 +9,18 @@ body {
     overflow: hidden;
 }
 
-/* ============================= */
-/* FIXED INSTRUCTION (FLOATING)  */
-/* ============================= */
+/* ============ NEW FIXED CONTAINER ============ */
+.scene {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+}
+
+/* ============ INSTRUCTION (FLOATING) ============ */
 .instruction {
-    position: absolute;   /* <-- CRITICAL FIX */
+    position: absolute;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
@@ -26,15 +32,13 @@ body {
     z-index: 200;
 }
 
-/* Hide instruction when opened */
-.envelope-wrapper.is-open ~ .instruction {
+/* HIDE instruction when opened */
+.envelope-wrapper.is-open ~ .garden ~ #replay-btn ~ .instruction {
     opacity: 0;
     pointer-events: none;
 }
 
-/* ============================= */
-/* ENVELOPE WRAPPER (KEEP OPEN)  */
-/* ============================= */
+/* ============ ENVELOPE WRAPPER ============ */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
@@ -42,15 +46,13 @@ body {
     height: 200px;
     background-color: transparent;
     z-index: 20;
-    overflow: visible; /* must stay */
+    overflow: visible;
 }
 
-/* ============================= */
-/* LETTER (HIDDEN AT FIRST)      */
-/* ============================= */
+/* ============ LETTER ============ */
 .letter {
     position: absolute;
-    bottom: 0; 
+    bottom: 0;
     left: 10px;
     width: 280px;
     height: 220px;
@@ -67,14 +69,14 @@ body {
     transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-/* WHEN OPEN — clean, visible, readable */
+/* Slide letter out when open */
 .envelope-wrapper.is-open .letter { 
     transform: translateY(-170px) scale(1);
     opacity: 1;
     z-index: 50;
 }
 
-/* Photo styling */
+/* Photo */
 .us-photo {
     width: 100%;
     height: auto;
@@ -82,9 +84,7 @@ body {
     margin-bottom: 8px;
 }
 
-/* ============================= */
-/* ENVELOPE BASE + FLAP          */
-/* ============================= */
+/* ============ ENVELOPE BASE + FLAP ============ */
 .envelope-base {
     position: absolute;
     bottom: 0;
@@ -111,9 +111,7 @@ body {
     transform: rotateX(180deg);
 }
 
-/* ============================= */
-/* WAX SEAL                      */
-/* ============================= */
+/* ============ WAX SEAL ============ */
 .wax-seal {
     position: absolute;
     top: 85px;
@@ -135,9 +133,7 @@ body {
     opacity: 0;
 }
 
-/* ============================= */
-/* GARDEN + FLOWERS (unchanged)  */
-/* ============================= */
+/* ============ GARDEN (KEY FIX) ============ */
 .garden {
     position: absolute;
     bottom: 0;
@@ -147,22 +143,70 @@ body {
     z-index: 2;
 }
 
+/* Hide flowers first */
 .flower-container { 
     position: absolute; 
     bottom: 0; 
-    display: none; 
+    display: none;
 }
 
-.scene .envelope-wrapper.is-open ~ .garden .flower-container {
+/* >>>>> THIS LINE IS THE CRITICAL FIX <<<<< */
+.envelope-wrapper.is-open ~ .garden .flower-container {
     display: block !important;
 }
 
-/* ============================= */
-/* REPLAY BUTTON                 */
-/* ============================= */
-#replay-btn {
+/* Flower positions */
+.flower-left { left: 15%; }
+.flower-right { right: 20%; }
+.flower-far-right { right: 5%; }
+
+/* Simple stem */
+.stem {
+    width: 6px;
+    height: 120px;
+    background: green;
     position: relative;
-    z-index: 100;
+}
+
+/* Flower head */
+.flower-head {
+    position: absolute;
+    top: -25px;
+    left: -12px;
+}
+
+/* Petals */
+.petal {
+    width: 25px;
+    height: 25px;
+    background: pink;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.petal:nth-child(1) { top: 0; left: 10px; }
+.petal:nth-child(2) { top: 10px; left: 0; }
+.petal:nth-child(3) { top: 10px; left: 20px; }
+.petal:nth-child(4) { top: 20px; left: 10px; }
+
+/* Center */
+.center {
+    width: 12px;
+    height: 12px;
+    background: yellow;
+    border-radius: 50%;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+/* Color variants */
+.pink .petal { background: #ff8fa3; }
+.blue .petal { background: #8ab6ff; }
+.purple .petal { background: #c084fc; }
+
+/* ============ REPLAY BUTTON ============ */
+#replay-btn {
     margin-top: 20px;
     padding: 10px 25px;
     background: #ff4d6d;
@@ -174,43 +218,17 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease;
+    z-index: 100;
 }
 
-.envelope-wrapper.is-open ~ #replay-btn { 
-    opacity: 1; 
-    visibility: visible; 
+/* Show button when open */
+.envelope-wrapper.is-open ~ .garden ~ #replay-btn {
+    opacity: 1;
+    visibility: visible;
 }
 
-/* ============================= */
-/* BOUNCE ANIMATION              */
-/* ============================= */
+/* ============ BOUNCE ============ */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
 }
-.scene .garden {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    z-index: 5;
-}
-
-/* Flowers hidden first */
-.scene .flower-container {
-    display: none;
-    visibility: hidden;
-}
-
-/* Flowers appear ONLY when envelope is open */
-.scene .envelope-wrapper.is-open ~ .garden .flower-container {
-    display: block !important;
-    visibility: visible !important;
-}
-
-/* Make sure flowers are above background but below letter */
-.flower-container {
-    z-index: 6 !important;
-}
-
-
-
