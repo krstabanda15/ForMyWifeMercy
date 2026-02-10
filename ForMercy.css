@@ -12,12 +12,16 @@ body {
 
 /* -------- INSTRUCTION -------- */
 .instruction {
-    margin-bottom: 20px;
+    position: absolute;   /* <-- KEY FIX */
+    top: 20px;            /* keep it at the top */
+    left: 50%;
+    transform: translateX(-50%);
     color: #ff4d6d;
     font-weight: bold;
     text-align: center;
     animation: bounce 2s infinite;
-    transition: opacity 0.6s ease; /* smooth fade */
+    transition: opacity 0.6s ease;
+    z-index: 200;         /* make sure it's on top initially */
 }
 
 @keyframes bounce {
@@ -258,3 +262,4 @@ body {
     opacity: 1; 
     visibility: visible; 
 }
+
