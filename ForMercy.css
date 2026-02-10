@@ -31,22 +31,24 @@ body {
     background-color: transparent;
     z-index: 20;
 }
+.envelope-wrapper.is-open .letter { 
+    transform: translateY(-180px); 
+    z-index: 40; /* JUMPS TO FRONT so Mercy can read it */
+}
 
 /* IMPORTANT: Hide the letter inside the envelope */
 .letter {
     position: absolute;
-    bottom: 5px; /* Tucked behind the base */
+    bottom: 5px; 
     left: 10px;
     width: 280px;
     height: 220px;
     background: white;
-    z-index: 5; /* Lower than base and top flap */
+    z-index: 5; /* LOWER NUMBER: This puts it BEHIND the envelope base */
     padding: 15px;
     box-sizing: border-box;
     text-align: center;
     transition: transform 0.8s ease-in-out;
-    border: 1px solid #ffccd5;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
 .us-photo {
@@ -67,7 +69,7 @@ body {
     height: 180px;
     background-color: #ff8fa3;
     border-radius: 0 0 10px 10px;
-    z-index: 10; /* Covers the letter */
+    z-index: 10; /* HIGHER NUMBER: This covers the letter */
 }
 
 .envelope-base::before {
@@ -167,3 +169,4 @@ body {
     visibility: hidden;
 }
 .envelope-wrapper.is-open ~ #replay-btn { opacity: 1; visibility: visible; }
+
