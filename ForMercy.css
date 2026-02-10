@@ -1,3 +1,4 @@
+/* --- General Layout --- */
 body {
     background-color: #fff0f3;
     display: flex;
@@ -19,36 +20,38 @@ body {
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-10px);}
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
 }
 
+/* --- Envelope Logic --- */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
     width: 300px;
     height: 200px;
-    overflow: hidden; 
-    z-index: 20; /* Keep envelope above the garden background */
+    z-index: 20;
+    transition: margin-top 0.5s;
 }
 
 .envelope-wrapper.is-open {
-    overflow: visible; 
+    overflow: visible;
 }
 
 .letter {
     position: absolute;
-    bottom: -100px; 
+    bottom: 0;
     left: 10px;
     width: 280px;
-    height: 240px; 
+    height: 240px;
     background: white;
-    z-index: 5; 
+    z-index: 5;
     padding: 20px 10px;
     box-sizing: border-box;
     text-align: center;
-    transition: transform 0.8s ease-in-out, z-index 0.3s;
+    transition: transform 0.8s ease-in-out;
     border: 1px solid #ffccd5;
+    transform: translateY(0);
 }
 
 .us-photo {
@@ -70,14 +73,14 @@ body {
     height: 180px;
     background-color: #ff8fa3;
     border-radius: 0 0 10px 10px;
-    z-index: 10; 
+    z-index: 10;
 }
 
 .envelope-base::before {
     content: "";
     position: absolute;
     top: 0;
-    z-index: 30; 
+    z-index: 30;
     border-left: 150px solid transparent;
     border-right: 150px solid transparent;
     border-top: 110px solid #ff758f;
@@ -93,20 +96,20 @@ body {
     height: 40px;
     background: #b91d1d;
     border-radius: 50%;
-    z-index: 31; 
+    z-index: 31;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fca5a5;
     box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    transition: opacity 0.3s ease;
 }
 
+/* --- Open State --- */
 .envelope-wrapper.is-open .envelope-base::before { transform: rotateX(180deg); z-index: 0; }
-.envelope-wrapper.is-open .wax-seal { opacity: 0; }
+.envelope-wrapper.is-open .wax-seal { opacity: 0; transition: 0.3s; }
 .envelope-wrapper.is-open .letter { transform: translateY(-260px); z-index: 50; }
 
-/* Hearts Animation */
+/* --- Hearts --- */
 .hearts-container {
     position: absolute;
     bottom: 50px;
@@ -135,12 +138,12 @@ body {
     100% { transform: translateY(-250px) scale(1.5); opacity: 0; }
 }
 
-/* Garden & Flowers */
+/* --- Garden & Flowers --- */
 .garden {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 0;
+    height: 200px; /* Crucial: Must have height to show the growth */
     pointer-events: none;
     z-index: 5;
 }
@@ -151,6 +154,7 @@ body {
     display: none;
 }
 
+/* This is the trigger: when envelope opens, show flowers */
 .envelope-wrapper.is-open ~ .garden .flower-container {
     display: block;
 }
@@ -163,7 +167,7 @@ body {
     border-radius: 3px;
 }
 
-/* Added Leaves */
+/* Leaves */
 .stem::after, .stem::before {
     content: '';
     position: absolute;
@@ -173,11 +177,11 @@ body {
     border-radius: 10px 0;
     top: 50px;
     opacity: 0;
-    animation: bloom 1s 1.5s forwards;
 }
 .stem::before { left: -15px; transform: rotate(-30deg); }
 .stem::after { right: -15px; transform: rotate(30deg); border-radius: 0 10px; }
 
+/* Flower Head */
 .flower-head {
     position: absolute;
     top: -15px;
@@ -208,6 +212,7 @@ body {
     left: 6px;
 }
 
+/* Colors and Positions */
 .pink { --petal-color: #ffb3c1; }
 .blue { --petal-color: #a2d2ff; }
 .purple { --petal-color: #c8b6ff; }
@@ -216,17 +221,24 @@ body {
 .flower-right { right: 15%; }
 .flower-far-right { right: 5%; }
 
-/* Staggered Growth */
+/* Growth Animations */
 .flower-left .stem { animation: growStem 2s 0.2s ease-out forwards; }
 .flower-left .flower-head { animation: bloom 1s 1.8s ease-out forwards; }
+.flower-left .stem::before, .flower-left .stem::after { animation: fadeIn 1s 1.5s forwards; }
+
 .flower-right .stem { animation: growStem 1.8s 0.5s ease-out forwards; }
 .flower-right .flower-head { animation: bloom 1s 2.0s ease-out forwards; }
+.flower-right .stem::before, .flower-right .stem::after { animation: fadeIn 1s 1.8s forwards; }
+
 .flower-far-right .stem { animation: growStem 2.2s 0.8s ease-out forwards; }
 .flower-far-right .flower-head { animation: bloom 1s 2.5s ease-out forwards; }
+.flower-far-right .stem::before, .flower-far-right .stem::after { animation: fadeIn 1s 2.1s forwards; }
 
 @keyframes growStem { to { height: 160px; } }
-@keyframes bloom { to { transform: translateX(-50%) scale(1); opacity: 1; } }
+@keyframes bloom { to { transform: translateX(-50%) scale(1); } }
+@keyframes fadeIn { to { opacity: 1; } }
 
+/* --- Buttons --- */
 #replay-btn {
     position: relative;
     z-index: 100;
@@ -248,7 +260,10 @@ body {
     visibility: visible;
 }
 
+/* --- Responsive --- */
 @media screen and (max-width: 480px) {
-    .envelope-wrapper { transform: scale(0.8); }
+    .envelope-wrapper { transform: scale(0.85); }
     .instruction { font-size: 0.9rem; padding: 0 20px; }
+    .flower-left { left: 5%; }
+    .flower-far-right { right: 2%; }
 }
