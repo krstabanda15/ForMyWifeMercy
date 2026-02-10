@@ -9,8 +9,7 @@
 </head>
 <body>
 
-    <div class="instruction">A special message for Mercy ❤️<br>(Click the envelope to open)</div>
-
+    <!-- ENVELOPE (must come FIRST for CSS to work) -->
     <div class="envelope-wrapper" id="envelope">
         <div class="letter">
             <img src="us.jpg" alt="Us" class="us-photo">
@@ -38,19 +37,52 @@
                 <div><i class="ri-heart-fill"></i></div>
             </div>
         </div>
-        
+
         <div class="envelope-base"></div>
     </div>
 
+    <!-- INSTRUCTION (must come AFTER envelope so CSS can hide it) -->
+    <div class="instruction">
+        A special message for Mercy ❤️<br>
+        (Click the envelope to open)
+    </div>
+
+    <!-- GARDEN & FLOWERS -->
     <div class="garden">
         <div class="flower-container flower-left pink">
-            <div class="stem"><div class="flower-head"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="center"></div></div></div>
+            <div class="stem">
+                <div class="flower-head">
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
         </div>
+
         <div class="flower-container flower-right blue">
-            <div class="stem"><div class="flower-head"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="center"></div></div></div>
+            <div class="stem">
+                <div class="flower-head">
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
         </div>
+
         <div class="flower-container flower-far-right purple">
-            <div class="stem"><div class="flower-head"><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="petal"></div><div class="center"></div></div></div>
+            <div class="stem">
+                <div class="flower-head">
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="petal"></div>
+                    <div class="center"></div>
+                </div>
+            </div>
         </div>
     </div>
 
