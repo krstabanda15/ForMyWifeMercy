@@ -17,11 +17,18 @@ body {
     font-weight: bold;
     text-align: center;
     animation: bounce 2s infinite;
+    transition: opacity 0.6s ease; /* smooth fade */
 }
 
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
     40% { transform: translateY(-10px); }
+}
+
+/* Hide instruction AFTER opening */
+.envelope-wrapper.is-open ~ .instruction {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ================= ENVELOPE WRAPPER ================= */
@@ -38,7 +45,7 @@ body {
 /* ================= LETTER (HIDDEN INSIDE) ================= */
 .letter {
     position: absolute;
-    bottom: -120px;  /* PUSH DEEP INSIDE ENVELOPE */
+    bottom: -120px;  /* DEEP INSIDE ENVELOPE */
     left: 10px;
     width: 280px;
     height: 220px;
