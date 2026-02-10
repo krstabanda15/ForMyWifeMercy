@@ -1,4 +1,3 @@
-/* --- General Layout --- */
 body {
     background-color: #fff0f3;
     display: flex;
@@ -24,19 +23,15 @@ body {
     40% { transform: translateY(-10px); }
 }
 
-/* --- Envelope Logic --- */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
     width: 300px;
     height: 200px;
     z-index: 20;
-    transition: margin-top 0.5s;
 }
 
-.envelope-wrapper.is-open {
-    overflow: visible;
-}
+.envelope-wrapper.is-open { overflow: visible; }
 
 .letter {
     position: absolute;
@@ -51,7 +46,6 @@ body {
     text-align: center;
     transition: transform 0.8s ease-in-out;
     border: 1px solid #ffccd5;
-    transform: translateY(0);
 }
 
 .us-photo {
@@ -59,12 +53,8 @@ body {
     height: 100px;
     object-fit: cover;
     border: 4px solid white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     margin-bottom: 10px;
 }
-
-.letter h2 { font-size: 1rem; color: #c9184a; margin: 5px 0; }
-.letter p { font-size: 0.8rem; line-height: 1.4; color: #590d22; margin: 2px 0; }
 
 .envelope-base {
     position: absolute;
@@ -101,62 +91,27 @@ body {
     justify-content: center;
     align-items: center;
     color: #fca5a5;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-/* --- Open State --- */
 .envelope-wrapper.is-open .envelope-base::before { transform: rotateX(180deg); z-index: 0; }
-.envelope-wrapper.is-open .wax-seal { opacity: 0; transition: 0.3s; }
+.envelope-wrapper.is-open .wax-seal { opacity: 0; }
 .envelope-wrapper.is-open .letter { transform: translateY(-260px); z-index: 50; }
 
-/* --- Hearts --- */
-.hearts-container {
-    position: absolute;
-    bottom: 50px;
-    width: 100%;
-    z-index: 15;
-    pointer-events: none;
-}
-.hearts-row {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-}
-.ri-heart-fill { color: #ff4d6d; font-size: 1.5rem; }
-
-.envelope-wrapper.is-open .hearts-row { animation: floatUp 3s ease-in-out infinite; }
-.envelope-wrapper.is-open .row-1 { animation-delay: 0.4s; }
-.envelope-wrapper.is-open .row-2 { animation-delay: 0.8s; }
-.envelope-wrapper.is-open .row-3 { animation-delay: 1.2s; }
-
-@keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(-250px) scale(1.5); opacity: 0; }
-}
-
-/* --- Garden & Flowers --- */
+/* Garden */
 .garden {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 200px; /* Crucial: Must have height to show the growth */
+    height: 200px;
     pointer-events: none;
     z-index: 5;
 }
 
-.flower-container {
-    position: absolute;
-    bottom: 0;
-    display: none;
-}
+.flower-container { position: absolute; bottom: 0; display: none; }
 
-/* This is the trigger: when envelope opens, show flowers */
+/* The Trigger */
 .envelope-wrapper.is-open ~ .garden .flower-container {
-    display: block;
+    display: block !important;
 }
 
 .stem {
@@ -167,21 +122,6 @@ body {
     border-radius: 3px;
 }
 
-/* Leaves */
-.stem::after, .stem::before {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 8px;
-    background: #2d6a4f;
-    border-radius: 10px 0;
-    top: 50px;
-    opacity: 0;
-}
-.stem::before { left: -15px; transform: rotate(-30deg); }
-.stem::after { right: -15px; transform: rotate(30deg); border-radius: 0 10px; }
-
-/* Flower Head */
 .flower-head {
     position: absolute;
     top: -15px;
@@ -212,33 +152,21 @@ body {
     left: 6px;
 }
 
-/* Colors and Positions */
-.pink { --petal-color: #ffb3c1; }
-.blue { --petal-color: #a2d2ff; }
-.purple { --petal-color: #c8b6ff; }
+.pink { --petal-color: #ffb3c1; left: 10%; }
+.blue { --petal-color: #a2d2ff; right: 15%; }
+.purple { --petal-color: #c8b6ff; right: 5%; }
 
-.flower-left { left: 10%; }
-.flower-right { right: 15%; }
-.flower-far-right { right: 5%; }
-
-/* Growth Animations */
-.flower-left .stem { animation: growStem 2s 0.2s ease-out forwards; }
-.flower-left .flower-head { animation: bloom 1s 1.8s ease-out forwards; }
-.flower-left .stem::before, .flower-left .stem::after { animation: fadeIn 1s 1.5s forwards; }
-
-.flower-right .stem { animation: growStem 1.8s 0.5s ease-out forwards; }
-.flower-right .flower-head { animation: bloom 1s 2.0s ease-out forwards; }
-.flower-right .stem::before, .flower-right .stem::after { animation: fadeIn 1s 1.8s forwards; }
-
-.flower-far-right .stem { animation: growStem 2.2s 0.8s ease-out forwards; }
-.flower-far-right .flower-head { animation: bloom 1s 2.5s ease-out forwards; }
-.flower-far-right .stem::before, .flower-far-right .stem::after { animation: fadeIn 1s 2.1s forwards; }
+/* Animations */
+.flower-left .stem { animation: growStem 2s 0.2s forwards; }
+.flower-left .flower-head { animation: bloom 1s 1.8s forwards; }
+.flower-right .stem { animation: growStem 1.8s 0.5s forwards; }
+.flower-right .flower-head { animation: bloom 1s 2.0s forwards; }
+.flower-far-right .stem { animation: growStem 2.2s 0.8s forwards; }
+.flower-far-right .flower-head { animation: bloom 1s 2.5s forwards; }
 
 @keyframes growStem { to { height: 160px; } }
 @keyframes bloom { to { transform: translateX(-50%) scale(1); } }
-@keyframes fadeIn { to { opacity: 1; } }
 
-/* --- Buttons --- */
 #replay-btn {
     position: relative;
     z-index: 100;
@@ -249,21 +177,20 @@ body {
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    font-weight: bold;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s;
 }
 
-.envelope-wrapper.is-open ~ #replay-btn { 
-    opacity: 1; 
-    visibility: visible;
-}
+.envelope-wrapper.is-open ~ #replay-btn { opacity: 1; visibility: visible; }
 
-/* --- Responsive --- */
-@media screen and (max-width: 480px) {
-    .envelope-wrapper { transform: scale(0.85); }
-    .instruction { font-size: 0.9rem; padding: 0 20px; }
-    .flower-left { left: 5%; }
-    .flower-far-right { right: 2%; }
+/* Hearts */
+.hearts-container { position: absolute; bottom: 50px; width: 100%; z-index: 15; pointer-events: none; }
+.hearts-row { display: flex; justify-content: center; gap: 15px; opacity: 0; position: absolute; width: 100%; }
+.envelope-wrapper.is-open .hearts-row { animation: floatUp 3s ease-in-out infinite; }
+.row-1 { animation-delay: 0.4s; } .row-2 { animation-delay: 0.8s; } .row-3 { animation-delay: 1.2s; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-200px); opacity: 0; }
 }
