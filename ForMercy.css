@@ -153,8 +153,8 @@ body {
     display: none; 
 }
 
-.envelope-wrapper.is-open ~ .garden .flower-container { 
-    display: block !important; 
+.envelope-wrapper.is-open + .garden .flower-container {
+    display: block !important;
 }
 
 /* ============================= */
@@ -188,3 +188,4 @@ body {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
 }
+
