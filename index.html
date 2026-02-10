@@ -30,11 +30,8 @@
                     <div><i class="ri-heart-fill"></i></div>
                     <div><i class="ri-heart-fill"></i></div>
                     <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
                 </div>
                 <div class="hearts-row row-2">
-                    <div><i class="ri-heart-fill"></i></div>
                     <div><i class="ri-heart-fill"></i></div>
                     <div><i class="ri-heart-fill"></i></div>
                 </div>
@@ -85,24 +82,6 @@
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <script>
-        const envelope = document.getElementById('envelope');
-        const replayBtn = document.getElementById('replay-btn');
-        const audio = document.getElementById('valentines-audio');
-
-        envelope.addEventListener('click', () => {
-            if(!envelope.classList.contains('is-open')) {
-                envelope.classList.add('is-open');
-                audio.play().catch(e => console.log("Music play blocked until interaction"));
-            }
-        });
-
-        replayBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            envelope.classList.remove('is-open');
-            audio.pause();
-            audio.currentTime = 0;
-        });
-    </script>
+    <script src="ForMercy.js"></script>
 </body>
 </html>
