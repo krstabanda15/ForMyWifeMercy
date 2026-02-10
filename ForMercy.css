@@ -23,6 +23,7 @@ body {
     40% { transform: translateY(-10px); }
 }
 
+/* ---------------- ENVELOPE WRAPPER ---------------- */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
@@ -30,25 +31,23 @@ body {
     height: 200px;
     background-color: transparent;
     z-index: 20;
-}
-.envelope-wrapper.is-open .letter { 
-    transform: translateY(-180px); 
-    z-index: 40; /* JUMPS TO FRONT so Mercy can read it */
+    overflow: hidden;   /* HIDES LETTER INSIDE */
 }
 
-/* IMPORTANT: Hide the letter inside the envelope */
+/* ---------------- LETTER (HIDDEN INSIDE) ---------------- */
 .letter {
     position: absolute;
-    bottom: 5px; 
+    bottom: -60px;   /* PUSH DEEP INSIDE ENVELOPE */
     left: 10px;
     width: 280px;
     height: 220px;
     background: white;
-    z-index: 5; /* LOWER NUMBER: This puts it BEHIND the envelope base */
+    z-index: 5; 
     padding: 15px;
     box-sizing: border-box;
     text-align: center;
     transition: transform 0.8s ease-in-out;
+    transform: translateY(0); /* default state */
 }
 
 .us-photo {
@@ -59,9 +58,20 @@ body {
     margin-bottom: 5px;
 }
 
-.letter h2 { font-size: 0.9rem; color: #c9184a; margin: 5px 0; }
-.letter p { font-size: 0.75rem; line-height: 1.3; color: #590d22; margin: 2px 0; }
+.letter h2 { 
+    font-size: 0.9rem; 
+    color: #c9184a; 
+    margin: 5px 0; 
+}
 
+.letter p { 
+    font-size: 0.75rem; 
+    line-height: 1.3; 
+    color: #590d22; 
+    margin: 2px 0; 
+}
+
+/* ---------------- ENVELOPE BASE ---------------- */
 .envelope-base {
     position: absolute;
     bottom: 0;
@@ -69,14 +79,14 @@ body {
     height: 180px;
     background-color: #ff8fa3;
     border-radius: 0 0 10px 10px;
-    z-index: 10; /* HIGHER NUMBER: This covers the letter */
+    z-index: 10;
 }
 
 .envelope-base::before {
     content: "";
     position: absolute;
     top: 0;
-    z-index: 30; /* The flap */
+    z-index: 30;
     border-left: 150px solid transparent;
     border-right: 150px solid transparent;
     border-top: 110px solid #ff758f;
@@ -84,6 +94,7 @@ body {
     transition: transform 0.5s ease;
 }
 
+/* ---------------- WAX SEAL ---------------- */
 .wax-seal {
     position: absolute;
     top: 85px;
@@ -100,15 +111,22 @@ body {
     transition: opacity 0.3s;
 }
 
-/* OPEN STATES */
-.envelope-wrapper.is-open .envelope-base::before { transform: rotateX(180deg); z-index: 0; }
-.envelope-wrapper.is-open .wax-seal { opacity: 0; }
-.envelope-wrapper.is-open .letter { 
-    transform: translateY(-180px); 
-    z-index: 40; /* Bring letter to the very front */
+/* ---------------- OPEN STATES ---------------- */
+.envelope-wrapper.is-open .envelope-base::before { 
+    transform: rotateX(180deg); 
+    z-index: 0; 
 }
 
-/* Garden & Flowers */
+.envelope-wrapper.is-open .wax-seal { 
+    opacity: 0; 
+}
+
+.envelope-wrapper.is-open .letter { 
+    transform: translateY(-180px); 
+    z-index: 40;
+}
+
+/* ---------------- GARDEN & FLOWERS ---------------- */
 .garden {
     position: absolute;
     bottom: 0;
@@ -118,16 +136,53 @@ body {
     z-index: 2;
 }
 
-.flower-container { position: absolute; bottom: 0; display: none; }
-.envelope-wrapper.is-open ~ .garden .flower-container { display: block !important; }
+.flower-container { 
+    position: absolute; 
+    bottom: 0; 
+    display: none; 
+}
 
-.stem { width: 6px; height: 0; background: #2d6a4f; position: relative; border-radius: 3px; }
-.flower-head { position: absolute; top: -15px; left: 50%; transform: translateX(-50%) scale(0); }
-.petal { position: absolute; width: 25px; height: 25px; border-radius: 50% 50% 0 50%; transform-origin: bottom right; background: var(--petal-color); }
+.envelope-wrapper.is-open ~ .garden .flower-container { 
+    display: block !important; 
+}
+
+.stem { 
+    width: 6px; 
+    height: 0; 
+    background: #2d6a4f; 
+    position: relative; 
+    border-radius: 3px; 
+}
+
+.flower-head { 
+    position: absolute; 
+    top: -15px; 
+    left: 50%; 
+    transform: translateX(-50%) scale(0); 
+}
+
+.petal { 
+    position: absolute; 
+    width: 25px; 
+    height: 25px; 
+    border-radius: 50% 50% 0 50%; 
+    transform-origin: bottom right; 
+    background: var(--petal-color); 
+}
+
 .petal:nth-child(2) { transform: rotate(90deg); }
 .petal:nth-child(3) { transform: rotate(180deg); }
 .petal:nth-child(4) { transform: rotate(270deg); }
-.center { width: 12px; height: 12px; background: #ffea00; border-radius: 50%; position: absolute; top: 6px; left: 6px; }
+
+.center { 
+    width: 12px; 
+    height: 12px; 
+    background: #ffea00; 
+    border-radius: 50%; 
+    position: absolute; 
+    top: 6px; 
+    left: 6px; 
+}
 
 .pink { --petal-color: #ffb3c1; left: 10%; }
 .blue { --petal-color: #a2d2ff; right: 15%; }
@@ -135,19 +190,41 @@ body {
 
 .flower-left .stem { animation: growStem 2s 0.2s forwards; }
 .flower-left .flower-head { animation: bloom 1s 1.8s forwards; }
+
 .flower-right .stem { animation: growStem 1.8s 0.5s forwards; }
 .flower-right .flower-head { animation: bloom 1s 2.0s forwards; }
+
 .flower-far-right .stem { animation: growStem 2.2s 0.8s forwards; }
 .flower-far-right .flower-head { animation: bloom 1s 2.5s forwards; }
 
 @keyframes growStem { to { height: 140px; } }
 @keyframes bloom { to { transform: translateX(-50%) scale(1); } }
 
-/* Hearts & Button */
-.hearts-container { position: absolute; bottom: 50px; width: 100%; z-index: 15; pointer-events: none; }
-.hearts-row { display: flex; justify-content: center; gap: 15px; opacity: 0; position: absolute; width: 100%; }
-.envelope-wrapper.is-open .hearts-row { animation: floatUp 3s ease-in-out infinite; }
-.row-1 { animation-delay: 0.4s; } .row-2 { animation-delay: 0.8s; } .row-3 { animation-delay: 1.2s; }
+/* ---------------- FLOATING HEARTS ---------------- */
+.hearts-container { 
+    position: absolute; 
+    bottom: 50px; 
+    width: 100%; 
+    z-index: 15; 
+    pointer-events: none; 
+}
+
+.hearts-row { 
+    display: flex; 
+    justify-content: center; 
+    gap: 15px; 
+    opacity: 0; 
+    position: absolute; 
+    width: 100%; 
+}
+
+.envelope-wrapper.is-open .hearts-row { 
+    animation: floatUp 3s ease-in-out infinite; 
+}
+
+.row-1 { animation-delay: 0.4s; }
+.row-2 { animation-delay: 0.8s; }
+.row-3 { animation-delay: 1.2s; }
 
 @keyframes floatUp {
     0% { transform: translateY(0); opacity: 0; }
@@ -155,6 +232,7 @@ body {
     100% { transform: translateY(-200px); opacity: 0; }
 }
 
+/* ---------------- REPLAY BUTTON ---------------- */
 #replay-btn {
     position: relative;
     z-index: 100;
@@ -168,5 +246,8 @@ body {
     opacity: 0;
     visibility: hidden;
 }
-.envelope-wrapper.is-open ~ #replay-btn { opacity: 1; visibility: visible; }
 
+.envelope-wrapper.is-open ~ #replay-btn { 
+    opacity: 1; 
+    visibility: visible; 
+}
