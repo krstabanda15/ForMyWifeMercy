@@ -11,7 +11,7 @@ body {
 }
 
 .instruction {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     color: #ff4d6d;
     font-weight: bold;
     text-align: center;
@@ -28,33 +28,37 @@ body {
     cursor: pointer;
     width: 300px;
     height: 200px;
+    background-color: transparent;
     z-index: 20;
 }
 
-.envelope-wrapper.is-open { overflow: visible; }
-
+/* IMPORTANT: Hide the letter inside the envelope */
 .letter {
     position: absolute;
-    bottom: 0;
+    bottom: 5px; /* Tucked behind the base */
     left: 10px;
     width: 280px;
-    height: 240px;
+    height: 220px;
     background: white;
-    z-index: 5;
-    padding: 20px 10px;
+    z-index: 5; /* Lower than base and top flap */
+    padding: 15px;
     box-sizing: border-box;
     text-align: center;
     transition: transform 0.8s ease-in-out;
     border: 1px solid #ffccd5;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
 .us-photo {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    border: 4px solid white;
-    margin-bottom: 10px;
+    border: 3px solid #fff0f3;
+    margin-bottom: 5px;
 }
+
+.letter h2 { font-size: 0.9rem; color: #c9184a; margin: 5px 0; }
+.letter p { font-size: 0.75rem; line-height: 1.3; color: #590d22; margin: 2px 0; }
 
 .envelope-base {
     position: absolute;
@@ -63,14 +67,14 @@ body {
     height: 180px;
     background-color: #ff8fa3;
     border-radius: 0 0 10px 10px;
-    z-index: 10;
+    z-index: 10; /* Covers the letter */
 }
 
 .envelope-base::before {
     content: "";
     position: absolute;
     top: 0;
-    z-index: 30;
+    z-index: 30; /* The flap */
     border-left: 150px solid transparent;
     border-right: 150px solid transparent;
     border-top: 110px solid #ff758f;
@@ -80,83 +84,53 @@ body {
 
 .wax-seal {
     position: absolute;
-    top: 90px;
+    top: 85px;
     left: 130px;
     width: 40px;
     height: 40px;
     background: #b91d1d;
     border-radius: 50%;
-    z-index: 31;
+    z-index: 35;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fca5a5;
+    transition: opacity 0.3s;
 }
 
+/* OPEN STATES */
 .envelope-wrapper.is-open .envelope-base::before { transform: rotateX(180deg); z-index: 0; }
 .envelope-wrapper.is-open .wax-seal { opacity: 0; }
-.envelope-wrapper.is-open .letter { transform: translateY(-260px); z-index: 50; }
+.envelope-wrapper.is-open .letter { 
+    transform: translateY(-180px); 
+    z-index: 40; /* Bring letter to the very front */
+}
 
-/* Garden */
+/* Garden & Flowers */
 .garden {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 200px;
+    height: 180px;
     pointer-events: none;
-    z-index: 5;
+    z-index: 2;
 }
 
 .flower-container { position: absolute; bottom: 0; display: none; }
+.envelope-wrapper.is-open ~ .garden .flower-container { display: block !important; }
 
-/* The Trigger */
-.envelope-wrapper.is-open ~ .garden .flower-container {
-    display: block !important;
-}
-
-.stem {
-    width: 6px;
-    height: 0;
-    background: #2d6a4f;
-    position: relative;
-    border-radius: 3px;
-}
-
-.flower-head {
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%) scale(0);
-}
-
-.petal {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    border-radius: 50% 50% 0 50%;
-    transform-origin: bottom right;
-    background: var(--petal-color); 
-}
-
+.stem { width: 6px; height: 0; background: #2d6a4f; position: relative; border-radius: 3px; }
+.flower-head { position: absolute; top: -15px; left: 50%; transform: translateX(-50%) scale(0); }
+.petal { position: absolute; width: 25px; height: 25px; border-radius: 50% 50% 0 50%; transform-origin: bottom right; background: var(--petal-color); }
 .petal:nth-child(2) { transform: rotate(90deg); }
 .petal:nth-child(3) { transform: rotate(180deg); }
 .petal:nth-child(4) { transform: rotate(270deg); }
-
-.center {
-    width: 12px;
-    height: 12px;
-    background: #ffea00;
-    border-radius: 50%;
-    position: absolute;
-    top: 6px;
-    left: 6px;
-}
+.center { width: 12px; height: 12px; background: #ffea00; border-radius: 50%; position: absolute; top: 6px; left: 6px; }
 
 .pink { --petal-color: #ffb3c1; left: 10%; }
 .blue { --petal-color: #a2d2ff; right: 15%; }
 .purple { --petal-color: #c8b6ff; right: 5%; }
 
-/* Animations */
 .flower-left .stem { animation: growStem 2s 0.2s forwards; }
 .flower-left .flower-head { animation: bloom 1s 1.8s forwards; }
 .flower-right .stem { animation: growStem 1.8s 0.5s forwards; }
@@ -164,26 +138,10 @@ body {
 .flower-far-right .stem { animation: growStem 2.2s 0.8s forwards; }
 .flower-far-right .flower-head { animation: bloom 1s 2.5s forwards; }
 
-@keyframes growStem { to { height: 160px; } }
+@keyframes growStem { to { height: 140px; } }
 @keyframes bloom { to { transform: translateX(-50%) scale(1); } }
 
-#replay-btn {
-    position: relative;
-    z-index: 100;
-    margin-top: 160px;
-    padding: 10px 25px;
-    background: #ff4d6d;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.envelope-wrapper.is-open ~ #replay-btn { opacity: 1; visibility: visible; }
-
-/* Hearts */
+/* Hearts & Button */
 .hearts-container { position: absolute; bottom: 50px; width: 100%; z-index: 15; pointer-events: none; }
 .hearts-row { display: flex; justify-content: center; gap: 15px; opacity: 0; position: absolute; width: 100%; }
 .envelope-wrapper.is-open .hearts-row { animation: floatUp 3s ease-in-out infinite; }
@@ -194,3 +152,18 @@ body {
     50% { opacity: 1; }
     100% { transform: translateY(-200px); opacity: 0; }
 }
+
+#replay-btn {
+    position: relative;
+    z-index: 100;
+    margin-top: 20px;
+    padding: 10px 25px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+}
+.envelope-wrapper.is-open ~ #replay-btn { opacity: 1; visibility: visible; }
