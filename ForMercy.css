@@ -1,167 +1,152 @@
-/* =========================
-   GLOBAL
-========================= */
-
 body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom, #ffe6f0, #ffd1e3);
-    text-align: center;
+    background-color: #fff0f3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
+    margin: 0;
+    font-family: 'Georgia', serif;
     overflow: hidden;
 }
 
-/* =========================
-   INSTRUCTION
-========================= */
-
+/* ======= INSTRUCTION (keeps your original) ======= */
 .instruction {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-bottom: 20px;
     color: #ff4d6d;
     font-weight: bold;
     text-align: center;
-    z-index: 200;
-    transition: opacity 0.6s ease;
+    animation: bounce 2s infinite;
+    transition: opacity 0.5s ease;
 }
 
-/* hide it AFTER opening */
 .envelope-wrapper.is-open ~ .instruction {
     opacity: 0;
-    pointer-events: none;
 }
 
-/* =========================
-   ENVELOPE CONTAINER
-   (🔥 CRITICAL FIX HERE)
-========================= */
-
+/* ======= ENVELOPE CONTAINER (THE REAL FIX) ======= */
 .envelope-wrapper {
     position: relative;
-    width: 340px;
-    height: 220px;
-    margin: 120px auto 0;
     cursor: pointer;
+    width: 300px;
+    height: 200px;
+    background-color: transparent;
+    z-index: 20;
 
-    /* 🔥 THIS IS THE REAL PROBLEM YOU HAD */
-    overflow: visible;   /* <-- MUST BE THIS */
+    /* 🔥 THIS is why your letter was stuck */
+    overflow: visible; 
 }
 
-/* =========================
-   LETTER (NOW CAN ESCAPE)
-========================= */
-
+/* ======= LETTER (HIDDEN INSIDE FIRST) ======= */
 .letter {
     position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translate(-50%, 40px) scale(0.9);
+    bottom: -10px; 
+    left: 10px;
     width: 280px;
+    height: 220px;
     background: white;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 15px;
+    box-sizing: border-box;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+
+    /* START hidden inside envelope */
+    transform: translateY(40px) scale(0.95);
     opacity: 0;
-    transition: all 0.8s ease;
-    z-index: 10;   /* must be above envelope */
+
+    transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
-/* WHEN OPEN — FULLY OUT OF ENVELOPE */
-.envelope-wrapper.is-open .letter {
+/* WHEN OPEN — SLIDE OUT CLEANLY */
+.envelope-wrapper.is-open .letter { 
+    transform: translateY(-260px) scale(1);
     opacity: 1;
-    transform: translate(-50%, -260px) scale(1);
+    z-index: 40;
 }
 
-/* your photo */
+/* Your photo stays nice */
 .us-photo {
     width: 100%;
+    height: auto;
     border-radius: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
-/* =========================
-   ENVELOPE BASE
-========================= */
-
+/* ======= ENVELOPE BASE (your original look kept) ======= */
 .envelope-base {
     position: absolute;
     bottom: 0;
-    width: 340px;
-    height: 200px;
-    background: #ff8fab;
-    border-radius: 15px;
-    z-index: 5;
+    width: 300px;
+    height: 180px;
+    background-color: #ff8fa3;
+    border-radius: 0 0 10px 10px;
+    z-index: 10;
 }
 
-/* =========================
-   FLAP
-========================= */
-
-.envelope-wrapper::before {
+/* ======= FLAP (your original style kept) ======= */
+.envelope-base::before {
     content: "";
     position: absolute;
-    width: 340px;
-    height: 120px;
-    background: #ffb3c6;
     top: 0;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-top: 110px solid #ff758f;
     transform-origin: top;
-    transition: transform 0.6s ease;
-    z-index: 6;
+    transition: transform 0.5s ease;
+    z-index: 30;
 }
 
-.envelope-wrapper.is-open::before {
-    transform: rotateX(180deg);
+.envelope-wrapper.is-open .envelope-base::before { 
+    transform: rotateX(180deg); 
 }
 
-/* =========================
-   WAX SEAL
-========================= */
-
+/* ======= WAX SEAL ======= */
 .wax-seal {
     position: absolute;
-    left: 50%;
-    bottom: 60px;
-    transform: translateX(-50%);
-    width: 45px;
-    height: 45px;
-    background: #c9184a;
+    top: 85px;
+    left: 130px;
+    width: 40px;
+    height: 40px;
+    background: #b91d1d;
     border-radius: 50%;
+    z-index: 35;
     display: flex;
-    align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 24px;
-    z-index: 7;
+    align-items: center;
+    color: #fca5a5;
+    transition: opacity 0.3s;
 }
 
-/* =========================
-   RESET BUTTON
-========================= */
+.envelope-wrapper.is-open .wax-seal { opacity: 0; }
 
-#replay-btn {
-    margin-top: 40px;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 20px;
-    background: #ff4d6d;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* =========================
-   GARDEN (keep yours)
-========================= */
-
+/* ======= FLOWERS (your original animations untouched) ======= */
 .garden {
     position: absolute;
     bottom: 0;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
+    height: 180px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.flower-container { position: absolute; bottom: 0; display: none; }
+.envelope-wrapper.is-open ~ .garden .flower-container { display: block !important; }
+
+/* ======= REPLAY BUTTON ======= */
+#replay-btn {
+    position: relative;
+    z-index: 100;
+    margin-top: 20px;
+    padding: 10px 25px;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.envelope-wrapper.is-open ~ #replay-btn { 
+    opacity: 1; 
+    visibility: visible; 
 }
