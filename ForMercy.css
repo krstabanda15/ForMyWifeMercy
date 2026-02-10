@@ -10,6 +10,7 @@ body {
     overflow: hidden;
 }
 
+/* -------- INSTRUCTION -------- */
 .instruction {
     margin-bottom: 20px;
     color: #ff4d6d;
@@ -23,31 +24,30 @@ body {
     40% { transform: translateY(-10px); }
 }
 
-/* ---------------- ENVELOPE WRAPPER ---------------- */
+/* ================= ENVELOPE WRAPPER ================= */
 .envelope-wrapper {
     position: relative;
     cursor: pointer;
     width: 300px;
-    height: 200px;
+    height: 180px;  /* MATCHES ENVELOPE HEIGHT */
     background-color: transparent;
     z-index: 20;
-    overflow: hidden;   /* HIDES LETTER INSIDE */
+    overflow: hidden;  /* HIDES LETTER INSIDE */
 }
 
-/* ---------------- LETTER (HIDDEN INSIDE) ---------------- */
+/* ================= LETTER (HIDDEN INSIDE) ================= */
 .letter {
     position: absolute;
-    bottom: -60px;   /* PUSH DEEP INSIDE ENVELOPE */
+    bottom: -120px;  /* PUSH DEEP INSIDE ENVELOPE */
     left: 10px;
     width: 280px;
     height: 220px;
     background: white;
-    z-index: 5; 
+    z-index: 5;
     padding: 15px;
     box-sizing: border-box;
     text-align: center;
     transition: transform 0.8s ease-in-out;
-    transform: translateY(0); /* default state */
 }
 
 .us-photo {
@@ -71,7 +71,7 @@ body {
     margin: 2px 0; 
 }
 
-/* ---------------- ENVELOPE BASE ---------------- */
+/* ================= ENVELOPE BASE ================= */
 .envelope-base {
     position: absolute;
     bottom: 0;
@@ -94,7 +94,7 @@ body {
     transition: transform 0.5s ease;
 }
 
-/* ---------------- WAX SEAL ---------------- */
+/* ================= WAX SEAL ================= */
 .wax-seal {
     position: absolute;
     top: 85px;
@@ -111,7 +111,7 @@ body {
     transition: opacity 0.3s;
 }
 
-/* ---------------- OPEN STATES ---------------- */
+/* ================= OPEN STATES ================= */
 .envelope-wrapper.is-open .envelope-base::before { 
     transform: rotateX(180deg); 
     z-index: 0; 
@@ -126,7 +126,7 @@ body {
     z-index: 40;
 }
 
-/* ---------------- GARDEN & FLOWERS ---------------- */
+/* ================= GARDEN & FLOWERS ================= */
 .garden {
     position: absolute;
     bottom: 0;
@@ -200,7 +200,7 @@ body {
 @keyframes growStem { to { height: 140px; } }
 @keyframes bloom { to { transform: translateX(-50%) scale(1); } }
 
-/* ---------------- FLOATING HEARTS ---------------- */
+/* ================= FLOATING HEARTS ================= */
 .hearts-container { 
     position: absolute; 
     bottom: 50px; 
@@ -232,7 +232,7 @@ body {
     100% { transform: translateY(-200px); opacity: 0; }
 }
 
-/* ---------------- REPLAY BUTTON ---------------- */
+/* ================= REPLAY BUTTON ================= */
 #replay-btn {
     position: relative;
     z-index: 100;
