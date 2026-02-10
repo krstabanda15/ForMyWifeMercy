@@ -1,77 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Lovely Mercy</title>
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link href="ForMercy.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>For Mercy</title>
+<link rel="stylesheet" href="ForMercy.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
+
 <body>
 
-    <div class="instruction">A special message for my Wife, Mercy ❤️<br>(Click the envelope to open)</div>
+<div class="instruction">
+A special message for Mercy ❤️<br>
+(Click the envelope to open)
+</div>
 
-    <div class="envelope-wrapper" id="envelope">
-        <article>
-            <div class="letter">
-                <img src="us.jpg" alt="Us" class="us-photo">
-                <h2>Happy Valentine's Day!</h2>
-                <p>To my lovely wife, <strong>Mercy</strong>,</p>
-                <p>You are the heart of our home and the love of my life.</p>
-                <p>Forever yours. ❤️</p>
-            </div>
+<div class="envelope-wrapper" id="envelope">
+<article>
 
-            <div class="wax-seal">
-                <i class="ri-heart-fill"></i>
-            </div>
+<div class="letter">
+<img src="us.jpg" alt="Us" class="us-photo">
+<h2>Happy Valentine's Day!</h2>
+<p>To my lovely wife, <strong>Mercy</strong>,</p>
+<p>You are the heart of our home and the love of my life.</p>
+<p>Forever yours. ❤️</p>
+</div>
 
-            <div class="hearts-container">
-                <div class="hearts-row row-3">
-                    <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
-                </div>
-                <div class="hearts-row row-2">
-                    <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
-                    <div><i class="ri-heart-fill"></i></div>
-                </div>
-                <div class="hearts-row row-1">
-                    <div><i class="ri-heart-fill"></i></div>
-                </div>
-            </div>
-            
-            <div class="envelope-base"></div>
-        </article>
-    </div>
+<div class="wax-seal">
+<i class="ri-heart-fill"></i>
+</div>
 
-    <button id="replay-btn">Close & Reset</button>
+<div class="envelope-base"></div>
 
-    <audio id="valentines-audio" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+</article>
+</div>
 
-    <script>
-        const envelope = document.getElementById('envelope');
-        const replayBtn = document.getElementById('replay-btn');
-        const audio = document.getElementById('valentines-audio');
+<!-- 🌷 GARDEN -->
+<div class="garden">
 
-        envelope.addEventListener('click', () => {
-            if(!envelope.classList.contains('is-open')) {
-                envelope.classList.add('is-open');
-                audio.play().catch(e => console.log("Music play blocked until interaction"));
-            }
-        });
+<div class="flower f1">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="bloom">
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="center"></div>
+</div>
+</div>
 
-        replayBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            envelope.classList.remove('is-open');
-            audio.pause();
-            audio.currentTime = 0;
-        });
-    </script>
+<div class="flower f2">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="bloom">
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="center"></div>
+</div>
+</div>
+
+<div class="flower f3">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="bloom">
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="center"></div>
+</div>
+</div>
+
+<div class="flower f4">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="bloom">
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="center"></div>
+</div>
+</div>
+
+<div class="flower f5">
+<div class="stem"></div>
+<div class="leaf left"></div>
+<div class="leaf right"></div>
+<div class="bloom">
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="petal"></div>
+<div class="center"></div>
+</div>
+</div>
+
+</div>
+
+<div class="butterflies">
+  <div class="butterfly b1"></div>
+  <div class="butterfly b2"></div>
+</div>
+
+<div class="petals">
+  <div class="petal-fall p1"></div>
+  <div class="petal-fall p2"></div>
+  <div class="petal-fall p3"></div>
+  <div class="petal-fall p4"></div>
+</div>
+
+<div class="sparkles">
+  <div class="sparkle s1"></div>
+  <div class="sparkle s2"></div>
+  <div class="sparkle s3"></div>
+</div>
+
+<!-- 🌸 FALLING PETALS -->
+<div class="petals">
+<div class="petal-fall p1"></div>
+<div class="petal-fall p2"></div>
+<div class="petal-fall p3"></div>
+<div class="petal-fall p4"></div>
+</div>
+
+<!-- ✨ SPARKLES -->
+<div class="sparkles">
+<div class="sparkle s1"></div>
+<div class="sparkle s2"></div>
+<div class="sparkle s3"></div>
+</div>
+
+<div class="photo-cloud">
+  <img src="us1.jpg" class="memory m1">
+  <img src="us2.jpg" class="memory m2">
+  <img src="us3.jpg" class="memory m3">
+  <img src="us4.jpg" class="memory m4">
+  <img src="us6.jpg" class="memory m6">
+</div>
+
+<button id="replay-btn">Close & Reset</button>
+
+<audio id="valentines-audio" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const envelope = document.getElementById('envelope');
+const replayBtn = document.getElementById('replay-btn');
+const audio = document.getElementById('valentines-audio');
+
+envelope.addEventListener('click', () => {
+if(!envelope.classList.contains('is-open')) {
+envelope.classList.add('is-open');
+audio.play().catch(e => console.log("Music requires interaction"));
+}
+});
+
+replayBtn.addEventListener('click', (e) => {
+e.stopPropagation();
+envelope.classList.remove('is-open');
+audio.pause();
+audio.currentTime = 0;
+});
+</script>
+
 </body>
 </html>
-
