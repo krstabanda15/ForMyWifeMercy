@@ -768,3 +768,108 @@ body::before {
   opacity: 1;
   visibility: visible;
 }
+
+.magic-aura {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255,200,255,0.4), transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.envelope-wrapper.is-open ~ .magic-aura {
+  animation: auraGlow 4s ease-in-out infinite alternate;
+  opacity: 1;
+}
+
+@keyframes auraGlow {
+  from { transform: translate(-50%, -50%) scale(0.9); opacity: .5; }
+  to { transform: translate(-50%, -50%) scale(1.1); opacity: .9; }
+}
+
+.heart-burst {
+  position: fixed;
+  font-size: 30px;
+  pointer-events: none;
+  z-index: 99999;
+}
+.love-quote {
+  position: absolute;
+  top: 80px;
+  width: 100%;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  color: rgb(255, 0, 136);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+
+  text-shadow:
+    0 0 5px rgba(255, 215, 0, 0.6),
+    0 0 15px rgba(255, 215, 0, 0.6),
+    0 0 30px rgba(255, 215, 0, 0.5);
+
+  transition: opacity 1.5s ease;
+}
+
+body.opened .love-quote {
+  opacity: 1;
+  animation: floatQuote 4s ease-in-out infinite,
+             glowPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatQuote {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes glowPulse {
+  from {
+    text-shadow:
+      0 0 5px rgba(255, 215, 0, 0.6),
+      0 0 15px rgba(255, 215, 0, 0.6),
+      0 0 30px rgba(255, 215, 0, 0.5);
+  }
+  to {
+    text-shadow:
+      0 0 10px rgba(255, 215, 0, 0.9),
+      0 0 25px rgba(255, 215, 0, 0.8),
+      0 0 45px rgba(255, 215, 0, 0.7);
+  }
+}
+
+body.opened {
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.03); }
+}
+
+.gold-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,215,0,.2) 50%, transparent 70%);
+  background-size: 200% 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.envelope-wrapper.is-open ~ .gold-overlay {
+  opacity: 1;
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
