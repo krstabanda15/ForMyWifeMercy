@@ -1,9 +1,7 @@
 /* ===================== GLOBAL + BEAUTIFUL BACKGROUND ===================== */
 
 body {
-  background: linear-gradient(120deg, #fff0f3, #ffd6e0, #ffccd5, #fff7fb);
-  background-size: 300% 300%;
-  animation: bgFlow 10s ease infinite;
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000000 70%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,6 +10,51 @@ body {
   margin: 0;
   font-family: "Georgia", serif;
   overflow: hidden;
+  transition: background 2s ease;
+}
+
+
+body.opened {
+  background: linear-gradient(120deg, #fff0f3, #ffd6e0, #ffccd5, #fff7fb);
+  background-size: 300% 300%;
+  animation: bgFlow 10s ease infinite;
+}
+
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, 
+              rgba(255,255,255,0.15) 0%, 
+              rgba(255,255,255,0.08) 30%, 
+              rgba(255,255,255,0.03) 50%, 
+              transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+  animation: spotlightPulse 4s ease-in-out infinite;
+}
+
+
+.envelope-wrapper {
+  position: relative;
+  z-index: 5;
+  filter: drop-shadow(0 0 20px rgba(255,150,200,0.4));
+  transition: transform 0.4s ease;
+}
+
+.envelope-wrapper:hover {
+  transform: scale(1.03);
+}
+
+@keyframes spotlightPulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
 
 @keyframes bgFlow {
@@ -171,7 +214,6 @@ body {
 .leaf.left { left: -20px; top: 80px; }
 .leaf.right { right: -20px; top: 140px; }
 
-/* 🌈 RAINBOW FLOWER */
 .bloom {
   position: absolute;
   bottom: 220px;
@@ -206,7 +248,6 @@ body {
   left: 30px;
 }
 
-/* TRIGGER GARDEN AFTER CLICK */
 
 .envelope-wrapper.is-open ~ .garden .stem {
   animation: growStem 2.8s ease-out forwards,
@@ -221,7 +262,6 @@ body {
   animation: bloomFlower 1.2s ease-out forwards 2.3s;
 }
 
-/* ===================== BUTTERFLIES WITH FLAPPING WINGS ===================== */
 
 .butterflies {
   position: absolute;
@@ -316,7 +356,7 @@ body {
   height: 20px;
   background: conic-gradient(red, orange, yellow, lime, cyan, blue, magenta);
   border-radius: 50%;
-  opacity: 0.8;
+  opacity: 0;
   animation: fall linear infinite;
   animation-play-state: paused;
 }
@@ -328,9 +368,9 @@ body {
 
 .envelope-wrapper.is-open ~ .petals .petal-fall {
   animation-play-state: running;
+  opacity: 0.9;
 }
 
-/* ===================== SPARKLES ===================== */
 
 .sparkles {
   position: absolute;
@@ -358,7 +398,6 @@ body {
   opacity: 1;
 }
 
-/* ===================== KEYFRAMES ===================== */
 
 @keyframes growStem {
   from { height: 0; }
@@ -433,7 +472,6 @@ body {
   transform: scale(0.5);
 }
 
-/* positions */
 .memory.m1 { left: 5%; top: 10%; }
 .memory.m2 { left: 75%; top: 15%; }
 .memory.m3 { left: 10%; top: 60%; }
@@ -441,14 +479,12 @@ body {
 .memory.m5 { left: 40%; top: 5%; }
 .memory.m6 { left: 45%; top: 65%; }
 
-/* show + animate only after envelope opens */
 .envelope-wrapper.is-open ~ .photo-cloud .memory {
   animation: floatMemory 6s ease-in-out infinite;
   opacity: 1;
   transform: scale(1);
 }
 
-/* different delays so they move separately */
 .envelope-wrapper.is-open ~ .photo-cloud .m1 { animation-delay: 0s; }
 .envelope-wrapper.is-open ~ .photo-cloud .m2 { animation-delay: 1s; }
 .envelope-wrapper.is-open ~ .photo-cloud .m3 { animation-delay: 2s; }
@@ -702,4 +738,33 @@ body {
   10% { opacity: 1; }
   40% { transform: translateX(120vw); opacity: 0; }
   100% { opacity: 0; }
+}
+
+.garden,
+.butterflies,
+.petals,
+.sparkles,
+.photo-cloud,
+.stars,
+.clouds,
+.light-rays,
+.fireflies,
+.shooting-star {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease;
+}
+
+.envelope-wrapper.is-open ~ .garden,
+.envelope-wrapper.is-open ~ .butterflies,
+.envelope-wrapper.is-open ~ .petals,
+.envelope-wrapper.is-open ~ .sparkles,
+.envelope-wrapper.is-open ~ .photo-cloud,
+.envelope-wrapper.is-open ~ .stars,
+.envelope-wrapper.is-open ~ .clouds,
+.envelope-wrapper.is-open ~ .light-rays,
+.envelope-wrapper.is-open ~ .fireflies,
+.envelope-wrapper.is-open ~ .shooting-star {
+  opacity: 1;
+  visibility: visible;
 }
