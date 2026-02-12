@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Mercy ❤️</title>
+<title>Only For Mercy ❤️</title>
+
 <style>
 body {
   margin: 0;
@@ -11,49 +12,82 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: radial-gradient(circle at center, #0f0f0f, #000);
-  color: white;
+  background: radial-gradient(circle at center, #0d0d0d, #000);
   font-family: "Georgia", serif;
+  color: white;
   overflow: hidden;
-  text-align: center;
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
   opacity: 0;
-  animation: fadeIn 3s forwards;
+  animation: fadeIn 2s forwards;
 }
 
 p {
   opacity: 0;
-  animation: fadeIn 3s forwards 1.5s;
+  animation: fadeIn 2s forwards 1s;
+}
+
+.lock-box {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 2s forwards 2s;
+}
+
+input {
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  text-align: center;
+  outline: none;
+  margin-bottom: 15px;
+  width: 220px;
 }
 
 button {
-  margin-top: 40px;
-  padding: 15px 40px;
-  font-size: 18px;
+  padding: 10px 30px;
+  border-radius: 25px;
   border: none;
-  border-radius: 30px;
-  cursor: pointer;
   background: linear-gradient(45deg, #ff4d6d, #ff85a2);
   color: white;
-  box-shadow: 0 0 20px rgba(255,100,150,.6);
-  transition: 0.4s;
-  opacity: 0;
-  animation: fadeIn 3s forwards 3s;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
 }
 
 button:hover {
   transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(255,100,150,.9);
+}
+
+.error {
+  color: #ff4d6d;
+  margin-top: 10px;
+  opacity: 0;
+}
+
+.shake {
+  animation: shake 0.4s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
 }
 
 @keyframes fadeIn {
   to { opacity: 1; }
 }
 
-/* soft floating hearts */
+/* floating hearts */
 .heart {
   position: absolute;
   color: #ff4d6d;
@@ -70,21 +104,36 @@ button:hover {
 
 <body>
 
-<h1>Wait… 💫</h1>
-<p>This message is only for one person in this world.</p>
+<h1>🔐 Only Mercy Can Enter</h1>
+<p>Enter our wedding date to unlock my heart</p>
 
-<button onclick="enterLove()">Unlock My Heart ❤️</button>
+<div class="lock-box">
+  <input type="password" id="password" placeholder="MMDDYYYY">
+  <button onclick="checkPassword()">Unlock ❤️</button>
+  <div class="error" id="errorMsg">That's not our special day 💔</div>
+</div>
 
 <script>
-function enterLove() {
-  document.body.style.opacity = "0";
-  document.body.style.transition = "1s";
-  setTimeout(() => {
-    window.location.href = "index.html"; 
-  }, 1000);
+const correctPassword = "06082020"; // 🔥 CHANGE THIS TO YOUR WEDDING DATE
+
+function checkPassword() {
+  const input = document.getElementById("password");
+  const errorMsg = document.getElementById("errorMsg");
+
+  if (input.value === correctPassword) {
+    document.body.style.transition = "1s";
+    document.body.style.opacity = "0";
+    setTimeout(() => {
+      window.location.href = "ForMercy.html";
+    }, 1000);
+  } else {
+    errorMsg.style.opacity = "1";
+    input.classList.add("shake");
+    setTimeout(() => input.classList.remove("shake"), 400);
+  }
 }
 
-/* floating hearts generator */
+/* floating hearts effect */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
