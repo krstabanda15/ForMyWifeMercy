@@ -67,6 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       heartExplosion();
       createQuoteSparkles();
+      magicalParticles();
+      shootingStars();
 
       if (audio) {
         audio.play().catch(() =>
@@ -166,4 +168,65 @@ function createQuoteSparkles() {
 
     setTimeout(() => sparkle.remove(), 1500);
   }
+}
+function magicalParticles() {
+  setInterval(() => {
+
+    const particle = document.createElement("div");
+    particle.innerHTML = "✨";
+    particle.style.position = "fixed";
+    particle.style.left = Math.random() * window.innerWidth + "px";
+    particle.style.top = window.innerHeight + "px";
+    particle.style.fontSize = "16px";
+    particle.style.pointerEvents = "none";
+    particle.style.opacity = 0.8;
+
+    document.body.appendChild(particle);
+
+    particle.animate([
+      { transform: "translateY(0px)", opacity: 0.8 },
+      { transform: "translateY(-600px)", opacity: 0 }
+    ], {
+      duration: 6000,
+      easing: "linear"
+    });
+
+    setTimeout(() => particle.remove(), 6000);
+
+  }, 800);
+}
+
+function shootingStars() {
+
+  setInterval(() => {
+
+    // 50% chance to appear
+    if (Math.random() > 0.5) return;
+
+    const star = document.createElement("div");
+    star.classList.add("shooting-star");
+
+    // Start from random top position
+    const startY = Math.random() * (window.innerHeight / 2);
+
+    star.style.top = startY + "px";
+    star.style.left = "-200px";
+
+    document.body.appendChild(star);
+
+    const distanceX = window.innerWidth + 400;
+    const distanceY = window.innerHeight / 2;
+
+    star.animate([
+      { transform: "translateX(0px) translateY(0px) rotate(45deg)", opacity: 1 },
+      { transform: `translateX(${distanceX}px) translateY(${distanceY}px) rotate(45deg)`, opacity: 0 }
+    ], {
+      duration: 2000,
+      easing: "ease-out"
+    });
+
+    setTimeout(() => star.remove(), 2000);
+
+  }, 5000);
+
 }
