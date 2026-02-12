@@ -15,8 +15,13 @@ A special message for my Wife, Mercy ❤️<br>
 (Click the envelope to open)
 </div>
 
+<div class="love-quote">You are my forever and always 💍</div>
+
 <div class="envelope-wrapper" id="envelope">
+  <div class="magic-aura"></div>
+
 <article>
+
 
 <div class="letter">
 <img src="us.jpg" alt="Us" class="us-photo">
@@ -174,28 +179,6 @@ A special message for my Wife, Mercy ❤️<br>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<script>
-const envelope = document.getElementById('envelope');
-const replayBtn = document.getElementById('replay-btn');
-const audio = document.getElementById('valentines-audio');
-
-envelope.addEventListener('click', () => {
-  if(!envelope.classList.contains('is-open')) {
-    envelope.classList.add('is-open');
-    document.body.classList.add('opened');   // ⭐ ADD THIS
-    audio.play().catch(e => console.log("Music requires interaction"));
-  }
-});
-
-replayBtn.addEventListener('click', (e) => {
-  e.stopPropagation();
-  envelope.classList.remove('is-open');
-  document.body.classList.remove('opened');  // ⭐ ADD THIS
-  audio.pause();
-  audio.currentTime = 0;
-});
-</script>
-
 <div id="heart-trail"></div>
 
 <div class="fireflies">
@@ -207,6 +190,7 @@ replayBtn.addEventListener('click', (e) => {
 </div>
 
 <div class="shooting-star"></div>
+<div class="gold-overlay"></div>
 <script src="ForMercy.js"></script>
 
 </body>
