@@ -2,209 +2,99 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Mercy</title>
-<link rel="stylesheet" href="ForMercy.css">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
-</head>
+<title>For Mercy ❤️</title>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: radial-gradient(circle at center, #0f0f0f, #000);
+  color: white;
+  font-family: "Georgia", serif;
+  overflow: hidden;
+  text-align: center;
+}
 
+h1 {
+  font-size: 2.5rem;
+  opacity: 0;
+  animation: fadeIn 3s forwards;
+}
+
+p {
+  opacity: 0;
+  animation: fadeIn 3s forwards 1.5s;
+}
+
+button {
+  margin-top: 40px;
+  padding: 15px 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  background: linear-gradient(45deg, #ff4d6d, #ff85a2);
+  color: white;
+  box-shadow: 0 0 20px rgba(255,100,150,.6);
+  transition: 0.4s;
+  opacity: 0;
+  animation: fadeIn 3s forwards 3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(255,100,150,.9);
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* soft floating hearts */
+.heart {
+  position: absolute;
+  color: #ff4d6d;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh) scale(0.5); }
+  to { transform: translateY(-10vh) scale(1.2); }
+}
+</style>
+</head>
 
 <body>
 
-<div class="instruction">
-A special message for Mercy ❤️<br>
-(Click the envelope to open)
-</div>
+<h1>Wait… 💫</h1>
+<p>This message is only for one person in this world.</p>
 
-<div class="envelope-wrapper" id="envelope">
-<article>
-
-<div class="letter">
-<img src="us.jpg" alt="Us" class="us-photo">
-<h2>Happy Valentine's Day!</h2>
-<p>To my lovely wife, <strong>Mercy</strong>,</p>
-<p>You are the heart of our home and the love of my life.</p>
-<p>Forever yours. ❤️</p>
-</div>
-
-<div class="wax-seal">
-<i class="ri-heart-fill"></i>
-</div>
-
-<div class="envelope-base"></div>
-
-</article>
-</div>
-
-<!-- 🌷 GARDEN -->
-<div class="garden">
-
-<div class="flower f1">
-<div class="stem"></div>
-<div class="leaf left"></div>
-<div class="leaf right"></div>
-<div class="bloom">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-
-<div class="flower f2">
-<div class="stem"></div>
-<div class="leaf left"></div>
-<div class="leaf right"></div>
-<div class="bloom">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-
-<div class="flower f3">
-<div class="stem"></div>
-<div class="leaf left"></div>
-<div class="leaf right"></div>
-<div class="bloom">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-
-<div class="flower f4">
-<div class="stem"></div>
-<div class="leaf left"></div>
-<div class="leaf right"></div>
-<div class="bloom">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-
-<div class="flower f5">
-<div class="stem"></div>
-<div class="leaf left"></div>
-<div class="leaf right"></div>
-<div class="bloom">
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="petal"></div>
-<div class="center"></div>
-</div>
-</div>
-
-</div>
-
-<div class="butterflies">
-  <div class="butterfly b1"></div>
-  <div class="butterfly b2"></div>
-</div>
-
-<div class="petals">
-  <div class="petal-fall p1"></div>
-  <div class="petal-fall p2"></div>
-  <div class="petal-fall p3"></div>
-  <div class="petal-fall p4"></div>
-</div>
-
-<div class="sparkles">
-  <div class="sparkle s1"></div>
-  <div class="sparkle s2"></div>
-  <div class="sparkle s3"></div>
-</div>
-
-<!-- 🌸 FALLING PETALS -->
-<div class="petals">
-<div class="petal-fall p1"></div>
-<div class="petal-fall p2"></div>
-<div class="petal-fall p3"></div>
-<div class="petal-fall p4"></div>
-</div>
-
-<!-- ✨ SPARKLES -->
-<div class="sparkles">
-<div class="sparkle s1"></div>
-<div class="sparkle s2"></div>
-<div class="sparkle s3"></div>
-</div>
-
-<div class="stars">
-  <span class="star s1"></span>
-  <span class="star s2"></span>
-  <span class="star s3"></span>
-  <span class="star s4"></span>
-  <span class="star s5"></span>
-</div>
-
-<div class="clouds">
-  <div class="cloud c1"></div>
-  <div class="cloud c2"></div>
-</div>
-
-<div class="light-rays">
-  <div class="ray"></div>
-</div>
-
-<div class="photo-cloud">
-  <img src="us1.jpg" class="memory m1">
-  <img src="us2.jpg" class="memory m2">
-  <img src="us3.jpg" class="memory m3">
-  <img src="us4.jpg" class="memory m4">
-  <img src="us6.jpg" class="memory m6">
-</div>
-
-<button id="replay-btn">Close & Reset</button>
-
-<audio id="valentines-audio" loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
+<button onclick="enterLove()">Unlock My Heart ❤️</button>
 
 <script>
-const envelope = document.getElementById('envelope');
-const replayBtn = document.getElementById('replay-btn');
-const audio = document.getElementById('valentines-audio');
-
-envelope.addEventListener('click', () => {
-if(!envelope.classList.contains('is-open')) {
-envelope.classList.add('is-open');
-audio.play().catch(e => console.log("Music requires interaction"));
+function enterLove() {
+  document.body.style.opacity = "0";
+  document.body.style.transition = "1s";
+  setTimeout(() => {
+    window.location.href = "index.html"; 
+  }, 1000);
 }
-});
 
-replayBtn.addEventListener('click', (e) => {
-e.stopPropagation();
-envelope.classList.remove('is-open');
-audio.pause();
-audio.currentTime = 0;
-});
+/* floating hearts generator */
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 20) + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 800);
 </script>
-
-<div id="heart-trail"></div>
-
-<div class="fireflies">
-  <span class="fire f1"></span>
-  <span class="fire f2"></span>
-  <span class="fire f3"></span>
-  <span class="fire f4"></span>
-  <span class="fire f5"></span>
-</div>
-
-<div class="shooting-star"></div>
 
 </body>
 </html>
