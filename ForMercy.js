@@ -1,75 +1,169 @@
-const envelope = document.querySelector(".envelope-wrapper");
-const replayBtn = document.getElementById("replay-btn");
-const audio = document.getElementById("valentines-audio");
-const heartTrail = document.getElementById("heart-trail");
+document.addEventListener("DOMContentLoaded", () => {
 
-/* ===============================
-   OPEN ENVELOPE
-================================= */
-envelope.addEventListener("click", () => {
+  const envelope = document.querySelector(".envelope-wrapper");
+  const replayBtn = document.getElementById("replay-btn");
+  const audio = document.getElementById("valentines-audio");
+  const heartTrail = document.getElementById("heart-trail");
 
-  if (!envelope.classList.contains("is-open")) {
+  console.log("DOM READY");
 
-    envelope.classList.add("is-open");
-    document.body.classList.add("opened");
-
-    audio.play().catch(() => {});
-
+  if (!envelope) {
+    console.error("Envelope not found!");
+    return;
   }
 
-});
+  /* ===============================
+     HEART EXPLOSION
+  ================================= */
+  function heartExplosion() {
+    console.log("BOOM");
 
-/* ===============================
-   CLOSE & RESET
-================================= */
-replayBtn.addEventListener("click", (e) => {
+    const rect = envelope.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-  e.stopPropagation();
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart-burst");
+      heart.innerHTML = "💖";
+      document.body.appendChild(heart);
 
-  envelope.classList.remove("is-open");
-  document.body.classList.remove("opened");
+      heart.style.position = "fixed";
+      heart.style.left = centerX + "px";
+      heart.style.top = centerY + "px";
+      heart.style.pointerEvents = "none";
+      heart.style.fontSize = "20px";
 
-  audio.pause();
-  audio.currentTime = 0;
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = 150 + Math.random() * 150;
 
-  heartTrail.innerHTML = ""; // clear hearts
-});
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
 
-/* ===============================
-   HEART TRAIL
-================================= */
-document.addEventListener("mousemove", (e) => {
+      heart.animate(
+        [
+          { transform: "translate(0,0) scale(1)", opacity: 1 },
+          { transform: `translate(${dx}px, ${dy}px) scale(0.3)`, opacity: 0 }
+        ],
+        {
+          duration: 1500,
+          easing: "ease-out"
+        }
+      );
 
-  if (!envelope.classList.contains("is-open")) return;
+      setTimeout(() => heart.remove(), 1500);
+    }
+  }
 
-  const heart = document.createElement("div");
-  heart.className = "trail-heart";
-  heart.innerHTML = "❤️";
-  heart.style.left = e.clientX + "px";
-  heart.style.top = e.clientY + "px";
+  /* ===============================
+     OPEN ENVELOPE
+  ================================= */
+  envelope.addEventListener("click", () => {
+    console.log("ENVELOPE CLICKED");
 
-  heartTrail.appendChild(heart);
+    if (!envelope.classList.contains("is-open")) {
+      envelope.classList.add("is-open");
+      document.body.classList.add("opened");
 
-  setTimeout(() => heart.remove(), 1200);
+      heartExplosion();
+      createQuoteSparkles();
 
-});
+      if (audio) {
+        audio.play().catch(() =>
+          console.log("Music requires interaction")
+        );
+      }
+    }
+  });
 
-/* ===============================
-   BUTTERFLY FOLLOW EFFECT
-================================= */
-document.addEventListener("mousemove", (e) => {
+  /* ===============================
+     CLOSE & RESET
+  ================================= */
+  if (replayBtn) {
+    replayBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
 
-  if (!envelope.classList.contains("is-open")) return;
+      envelope.classList.remove("is-open");
+      document.body.classList.remove("opened");
 
-  const butterflies = document.querySelectorAll(".butterfly");
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
 
-  butterflies.forEach((b, i) => {
+      if (heartTrail) {
+        heartTrail.innerHTML = "";
+      }
+    });
+  }
 
-    let x = (e.clientX / window.innerWidth) * 200 - 100;
-    let y = (e.clientY / window.innerHeight) * -150;
+  /* ===============================
+     HEART TRAIL
+  ================================= */
+  document.addEventListener("mousemove", (e) => {
 
-    b.style.transform = `translate(${x * (i + 1) * 0.3}px, ${y * (i + 1) * 0.3}px)`;
+    if (!envelope.classList.contains("is-open")) return;
+    if (!heartTrail) return;
+
+    const heart = document.createElement("div");
+    heart.className = "trail-heart";
+    heart.innerHTML = "❤️";
+
+    heart.style.position = "fixed";
+    heart.style.left = e.clientX + "px";
+    heart.style.top = e.clientY + "px";
+    heart.style.pointerEvents = "none";
+
+    heartTrail.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 1000);
+  });
+
+  /* ===============================
+     BUTTERFLY FOLLOW EFFECT
+  ================================= */
+  document.addEventListener("mousemove", (e) => {
+
+    if (!envelope.classList.contains("is-open")) return;
+
+    const butterflies = document.querySelectorAll(".butterfly");
+
+    butterflies.forEach((b, i) => {
+      const x = (e.clientX / window.innerWidth) * 200 - 100;
+      const y = (e.clientY / window.innerHeight) * -150;
+
+      b.style.transform =
+        `translate(${x * (i + 1) * 0.3}px, ${y * (i + 1) * 0.3}px)`;
+    });
 
   });
 
 });
+
+function createQuoteSparkles() {
+
+  const quote = document.querySelector(".love-quote");
+  const rect = quote.getBoundingClientRect();
+
+  for (let i = 0; i < 15; i++) {
+
+    const sparkle = document.createElement("div");
+    sparkle.innerHTML = "✨";
+    sparkle.style.position = "fixed";
+    sparkle.style.left = rect.left + Math.random() * rect.width + "px";
+    sparkle.style.top = rect.top + Math.random() * rect.height + "px";
+    sparkle.style.pointerEvents = "none";
+    sparkle.style.fontSize = "18px";
+    sparkle.style.opacity = 1;
+    sparkle.style.transition = "1.5s ease";
+
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => {
+      sparkle.style.transform = `translateY(-40px) scale(0.5)`;
+      sparkle.style.opacity = 0;
+    }, 50);
+
+    setTimeout(() => sparkle.remove(), 1500);
+  }
+}
