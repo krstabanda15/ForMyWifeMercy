@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>For Mercy ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
+/* BODY */
 body {
   margin: 0;
   height: 100vh;
@@ -16,20 +18,32 @@ body {
   font-family: "Georgia", serif;
   overflow: hidden;
   text-align: center;
+  transition: opacity 1s;
 }
 
-h1 {
-  font-size: 2.5rem;
+/* COMMON FADE */
+.fade {
   opacity: 0;
-  animation: fadeIn 3s forwards;
+  transition: opacity 1s;
 }
 
-p {
-  opacity: 0;
-  animation: fadeIn 3s forwards 1.5s;
+.show {
+  opacity: 1;
 }
 
-button {
+/* INDEX PAGE */
+#indexPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+#indexPage h1 { animation: fadeIn 3s forwards; font-size: 2.5rem; }
+#indexPage p { animation: fadeIn 3s forwards 1.5s; font-size: 1.2rem; margin-top: 10px; }
+#indexPage button {
   margin-top: 40px;
   padding: 15px 40px;
   font-size: 18px;
@@ -40,51 +54,153 @@ button {
   color: white;
   box-shadow: 0 0 20px rgba(255,100,150,.6);
   transition: 0.4s;
-  opacity: 0;
   animation: fadeIn 3s forwards 3s;
 }
-
-button:hover {
+#indexPage button:hover {
   transform: scale(1.1);
   box-shadow: 0 0 30px rgba(255,100,150,.9);
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
+/* UNLOCK PAGE */
+#unlockPage {
+  display: none;
+}
+.unlock-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.unlock-container h1 { animation: fadeIn 2s forwards; font-size: 2.5rem; }
+.unlock-container p { animation: fadeIn 2s forwards 1s; font-size: 1.2rem; margin-top: 10px; }
+
+.lock-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeIn 2s forwards 2s;
 }
 
-/* soft floating hearts */
+.lock-box input {
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  min-width: 150px;
+  max-width: 250px;
+  text-align: center;
+  flex: 1 1 auto;
+}
+
+button.unlockBtn {
+  padding: 12px 25px;
+  border-radius: 25px;
+  border: none;
+  background: linear-gradient(45deg, #ff4d6d, #ff85a2);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s;
+  flex: 0 0 auto;
+}
+button.unlockBtn:hover { transform: scale(1.1); }
+
+.error {
+  color: #ff4d6d;
+  margin-top: 10px;
+  opacity: 0;
+  text-align: center;
+  width: 100%;
+}
+.shake { animation: shake 0.4s; }
+
+/* KEYFRAMES */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
+}
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* FLOATING HEARTS */
 .heart {
   position: absolute;
   color: #ff4d6d;
   animation: floatUp 6s linear infinite;
   opacity: 0.4;
 }
-
 @keyframes floatUp {
   from { transform: translateY(100vh) scale(0.5); }
   to { transform: translateY(-10vh) scale(1.2); }
 }
+
+/* RESPONSIVE */
+@media screen and (max-width: 480px) {
+  #indexPage h1,
+  .unlock-container h1 {
+    font-size: 1.8rem;
+  }
+  #indexPage p,
+  .unlock-container p {
+    font-size: 1rem;
+  }
+  .lock-box input {
+    font-size: 16px;
+    padding: 10px 15px;
+  }
+  .lock-box button.unlockBtn {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
 </style>
 </head>
-
 <body>
 
-<h1>Wait… 💫</h1>
-<p>This message is only for one person in this world.</p>
+<!-- INDEX PAGE -->
+<div id="indexPage" class="fade show">
+  <h1>Wait… 💫</h1>
+  <p>This message is only for one person in this world.</p>
+  <button onclick="goToUnlock()">Unlock My Heart ❤️</button>
+</div>
 
-<button onclick="enterLove()">Unlock My Heart ❤️</button>
+<!-- UNLOCK PAGE -->
+<div id="unlockPage" class="fade">
+  <div class="unlock-container">
+    <h1>🔐 Only Mercy Can Enter</h1>
+    <p>Enter our wedding date to unlock my heart</p>
+    <div class="lock-box">
+      <input type="password" id="password" placeholder="MMDDYYYY">
+      <button class="unlockBtn" onclick="checkPassword()">Unlock ❤️</button>
+    </div>
+    <div class="error" id="errorMsg">That's not our special day 💔</div>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bg-music" loop preload="auto">
+  <source src="intro-music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-function enterLove() {
-  document.body.style.opacity = "0";
-  document.body.style.transition = "1s";
-  setTimeout(() => {
-    window.location.href = "unlock.html"; 
-  }, 1000);
-}
+// MUSIC
+const music = document.getElementById("bg-music");
+music.volume = 0.6;
+music.addEventListener("loadedmetadata", () => { music.currentTime = 9; });
+document.addEventListener("click", () => music.play().catch(()=>{}), { once: true });
 
-/* floating hearts generator */
+// FLOATING HEARTS
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -94,8 +210,37 @@ setInterval(() => {
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 6000);
 }, 800);
+
+// PAGE TRANSITIONS
+function goToUnlock() {
+  const index = document.getElementById("indexPage");
+  const unlock = document.getElementById("unlockPage");
+  index.classList.remove("show");
+  setTimeout(() => {
+    index.style.display = "none";
+    unlock.style.display = "flex";
+    setTimeout(() => unlock.classList.add("show"), 50);
+  }, 1000);
+}
+
+// PASSWORD CHECK
+const correctPassword = "06082020";
+function checkPassword() {
+  const input = document.getElementById("password");
+  const errorMsg = document.getElementById("errorMsg");
+
+  if (input.value === correctPassword) {
+    document.body.style.opacity = "0";
+    setTimeout(() => {
+      window.location.href = "ForMercy.html"; // Redirect when correct
+    }, 1000);
+  } else {
+    errorMsg.style.opacity = "1";
+    input.classList.add("shake");
+    setTimeout(() => input.classList.remove("shake"), 400);
+  }
+}
 </script>
 
 </body>
 </html>
-
